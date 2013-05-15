@@ -3,58 +3,14 @@
         "http://struts.apache.org/dtds/struts-config_1_3.dtd">
 
 <struts-config>
-	<form-beans>
-		<form-bean name="title_form" type="it.univaq.mwt.j2ee.library.presentation.titles.TitleForm"/>
-	</form-beans>
 
 	<action-mappings>
-		<action path="/index" 
-				type="org.apache.struts.actions.ForwardAction" 
-        		parameter="common.index"/>
-
-		<action path="/titles/views" 
-				type="it.univaq.mwt.j2ee.library.presentation.titles.TitlesAction"
-				parameter="views">
-			<forward name="success" path="titles.views"/>
+		<action path="/products/view" type="it.univaq.mwt.j2ee.km0.presentation.products.ProductAction">
+		<forward name="success" path="/products/productviews.jsp" />
 		</action>
-		
-		<action path="/titles/findAllTitlesPaginated" 
-				type="it.univaq.mwt.j2ee.library.presentation.titles.TitlesAction"
-				parameter="findAllTitlesPaginated">
-		</action>
-		
-		<action path="/titles/insert_start" 
-				type="it.univaq.mwt.j2ee.library.presentation.titles.TitlesAction"
-				parameter="insertStart">
-			<forward name="form" path="titles.inserttitle"/>
-		</action>
-
-		<action name="title_form" scope="request" 
-				validate="true" input="titles.inserttitle"
-				path="/titles/insert" 
-				type="it.univaq.mwt.j2ee.library.presentation.titles.TitlesAction"
-				parameter="insert">
-			<forward name="success" path="/titles/views.do" redirect="true"/>
-		</action>
-		<action name="title_form" scope="request"
-				validate="false"
-				path="/titles/update_start" 
-				type="it.univaq.mwt.j2ee.library.presentation.titles.TitlesAction"
-				parameter="updateStart">
-			<forward name="form" path="titles.updatetitle"/>
-		</action>
-
-		<action name="title_form" scope="request"
-				validate="true" input="titles.updatetitle"
-				path="/titles/update" 
-				type="it.univaq.mwt.j2ee.library.presentation.titles.TitlesAction"
-				parameter="update">
-			<forward name="success" path="/titles/views.do" redirect="true"/>
-		</action>
-
 	</action-mappings>
-	
-	<!-- ========== Message Resources Definitions ============================ -->
+
+<!-- ========== Message Resources Definitions ============================ -->
     <message-resources null="false" parameter="library"/>
     
 	<!-- ========== Plug Ins Configuration ================================= -->
@@ -66,4 +22,5 @@
         <set-property value="/WEB-INF/struts/tiles-defs.xml" property="definitions-config"/>
         <set-property value="true" property="moduleAware"/>
     </plug-in>    
+	
 </struts-config>
