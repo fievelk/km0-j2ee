@@ -10,21 +10,30 @@ public class Cart {
 	private Date dispatched; // Momento della consegna
 	private Date paid;
 	private Collection<CartLine> cartLines;
-	
-	
+	private String address;
+	private String name;
+	private String surname;
+
 	public Cart() {
 		super();
 	}
 
-	public Cart(long oid, Date created) {
+	
+	public Cart(long oid, Date created, Date dispatched, Date paid,
+			Collection<CartLine> cartLines, String address, String name,
+			String surname) {
 		super();
 		this.oid = oid;
 		this.created = created;
-		this.dispatched = null; // Al momento della creazione dispatched e paid sono null
-		this.paid = null;
-		this.cartLines = null;
+		this.dispatched = dispatched;
+		this.paid = paid;
+		this.cartLines = cartLines;
+		this.address = address;
+		this.name = name;
+		this.surname = surname;
 	}
-	
+
+
 	public long getOid() {
 		return oid;
 	}
@@ -64,6 +73,30 @@ public class Cart {
 	
 	public void delCartLines(CartLine cartLine) { // DELete a cartLine
 		this.cartLines.remove(cartLine);
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 	
 
