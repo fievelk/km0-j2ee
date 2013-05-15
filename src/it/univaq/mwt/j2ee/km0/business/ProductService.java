@@ -7,21 +7,21 @@ import it.univaq.mwt.j2ee.km0.business.model.Product;
 
 public interface ProductService {
 		
-	void createProduct(Product product);
+	void createProduct(Product product) throws BusinessException;
 		
-	void updateProduct(Product product);
+	void updateProduct(Product product) throws BusinessException;
 		
-	void deleteProduct(long  oid_product);
+	void deleteProduct(long  oid_product) throws BusinessException;
 
-	List<Product> viewProducts();
+	List<Product> viewProducts() throws BusinessException;
 	
-	void createCategory(Category category);
+	void createCategory(Category category) throws BusinessException;
 	
-	void updateCategory(Category category);
+	void updateCategory(Category category) throws BusinessException;
 	
-	void deleteCategory(long oid_category);
+	void deleteCategory(long oid_category) throws BusinessException;
 	
-	List<Category> findAllCategories();
+	List<Category> findAllCategories() throws BusinessException;
 	
 	
 	// inserire ResponseGrid

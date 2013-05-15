@@ -6,16 +6,16 @@ import it.univaq.mwt.j2ee.km0.business.model.User;
 
 public interface UserService {
 	
-	void createUser(User user);
+	void createUser(User user) throws BusinessException;
 	
-	void updateUser(User user);
+	void updateUser(User user) throws BusinessException;
 	
-	void deleteUser(long oid_user);
+	void deleteUser(long oid_user) throws BusinessException;
 	
-	void userMapView(long oid_user, String address);
+	void userMapView(long oid_user, String address) throws BusinessException;
 	
-	void sellerMapView(long oid_seller, String address);
+	void sellerMapView(long oid_seller, String address) throws BusinessException;
 	
-	List<User> viewAllUsers();
+	List<User> viewAllUsers() throws BusinessException;
 
 }
