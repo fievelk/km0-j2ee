@@ -13,7 +13,7 @@ public class Product {
 	private Date data_out;
 	private Category category;
 	private Collection<Image> images;
-
+	private float rating;
 
 	public Product() {
 		super();
@@ -83,6 +83,12 @@ public class Product {
 		this.images = images;
 	}
 
-	
+	public float getRating() {
+		return rating;
+	}
+
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
 	
 }
