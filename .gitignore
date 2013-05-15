@@ -1,3 +1,10 @@
 # Ignores compiled sources #
-
 *.class
+
+# Ignores classpath
+.classpath
+
+# Ignores libraries and others
+*.jar
+*.war
+*.ear
