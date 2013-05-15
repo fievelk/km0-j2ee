@@ -1,6 +1,6 @@
 # Ignores compiled sources #
 *.class
-/build
+build/
 # Ignores classpath
 .classpath
 
