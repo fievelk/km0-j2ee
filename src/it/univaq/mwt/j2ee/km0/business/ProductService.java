@@ -14,6 +14,9 @@ public interface ProductService {
 
 	List<Product> viewProducts();
 	
+	/* Funzione per il calcolo del rating... da discutere */
+	float calcoloRating(long oid_product, int totCartLine, int totRatingCartLine);
+	
 	// inserire ResponseGrid
 	// il findAllCategories va messo in CategoryService;
 }
