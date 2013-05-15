@@ -7,28 +7,28 @@ import it.univaq.mwt.j2ee.km0.business.model.CartLine;
 
 public interface CartService {
 	
-	void createCart(Cart cart);
+	void createCart(Cart cart) throws BusinessException;
 	
-	void updateCart(Cart cart);
+	void updateCart(Cart cart) throws BusinessException;
 	
-	void deleteCart(long oid_cart);
+	void deleteCart(long oid_cart) throws BusinessException;
 	
-	Cart viewCart(long oid_user, long oid_cart);
+	Cart viewCart(long oid_user, long oid_cart) throws BusinessException;
 	
-	List<Cart> viewUserOrders(long oid_user);
+	List<Cart> viewUserOrders(long oid_user) throws BusinessException;
 	
-	List<Cart> viewSellerOrders(long oid_seller);
+	List<Cart> viewSellerOrders(long oid_seller) throws BusinessException;
 	
-	List<Cart> viewAdminOrders();
+	List<Cart> viewAdminOrders() throws BusinessException;
 	
 	// CRUD per le CartLine
 	
-	void createCartLine(CartLine cartline);
+	void createCartLine(CartLine cartline) throws BusinessException;
 
-	void updateCartLine(CartLine cartline);
+	void updateCartLine(CartLine cartline) throws BusinessException;
 
-	void deleteCartLine(long oid_cartLine);
+	void deleteCartLine(long oid_cartLine) throws BusinessException;
 	
-	List<CartLine> viewCartLines(long oid_cart);
+	List<CartLine> viewCartLines(long oid_cart) throws BusinessException;
 
 }
