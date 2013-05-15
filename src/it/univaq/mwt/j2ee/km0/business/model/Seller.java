@@ -5,6 +5,5 @@ public class Seller extends User {
 	private String p_iva;
 	private String cod_fisc;
 	private String company;
-	private Address address;
 	
 }
