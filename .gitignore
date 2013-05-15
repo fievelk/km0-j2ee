@@ -1,6 +1,6 @@
 # Ignores compiled sources #
 *.class
-
+/build
 # Ignores classpath
 .classpath
 
@@ -8,3 +8,4 @@
 *.jar
 *.war
 *.ear
+/build
