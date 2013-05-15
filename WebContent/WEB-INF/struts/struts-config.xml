@@ -22,5 +22,5 @@
         <set-property value="/WEB-INF/struts/tiles-defs.xml" property="definitions-config"/>
         <set-property value="true" property="moduleAware"/>
     </plug-in>    
-	
+
 </struts-config>
