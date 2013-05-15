@@ -2,6 +2,7 @@ package it.univaq.mwt.j2ee.km0.business;
 
 import java.util.List;
 
+import it.univaq.mwt.j2ee.km0.business.model.Seller;
 import it.univaq.mwt.j2ee.km0.business.model.User;
 
 public interface UserService {
@@ -12,10 +13,18 @@ public interface UserService {
 	
 	void deleteUser(long oid_user);
 	
-	void userMapView(long oid_user, String address);
-	
-	void sellerMapView(long oid_seller, String address);
-	
 	List<User> viewAllUsers();
+	
+	List<User> getUsersFromPaidCarts();
+	
+	void createSeller(Seller seller);
+	
+	void updateSeller(Seller seller);
+	
+	void deleteSeller(long oid_seller);
+	
+	List<Seller> viewAllSellers();
+	
+	List<Seller> getSellersFromPaidCarts();	
 
 }
