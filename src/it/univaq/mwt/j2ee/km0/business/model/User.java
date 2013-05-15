@@ -12,15 +12,18 @@ public class User {
 	private Date created;
 	private Date date_of_birth;
 	private Date last_access;
+	private String address;
 	
 
 	public User() {
 		
 	}
 	
+	
+
 	public User(long oid, String name, String surname, String email,
 			String password, Date created, Date date_of_birth,
-			Date last_access) {
+			Date last_access, String address) {
 		super();
 		this.oid = oid;
 		this.name = name;
@@ -30,7 +33,22 @@ public class User {
 		this.created = created;
 		this.date_of_birth = date_of_birth;
 		this.last_access = last_access;
+		this.address = address;
 	}
+
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
 
 	public long getOid() {
 		return oid;
