@@ -12,7 +12,7 @@ public class Address {
 	public Address(long oid, String address, boolean is_default) {
 		super();
 		this.oid = oid;
-		this.address = address;isahdiuhasd
+		this.address = address;
 		this.is_default = is_default;
 	}
 
