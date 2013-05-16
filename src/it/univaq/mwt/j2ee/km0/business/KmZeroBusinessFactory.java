@@ -9,7 +9,7 @@ public abstract class KmZeroBusinessFactory {
 	
 	private static KmZeroBusinessFactory instance;
 	
-	public KmZeroBusinessFactory getInstance(){
+	public static KmZeroBusinessFactory getInstance(){
 		return instance;
 	}
 	

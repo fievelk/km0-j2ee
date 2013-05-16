@@ -77,5 +77,11 @@ public class JDBCUserService implements UserService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public User findUserByPK(long oid) throws BusinessException{
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

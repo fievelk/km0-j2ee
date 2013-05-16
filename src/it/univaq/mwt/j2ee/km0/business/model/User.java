@@ -46,20 +46,7 @@ public class User {
 		this.last_access = last_access;
 		this.address = address;
 	}
-
-
-
-	public String getAddress() {
-		return address;
-	}
-
-
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-
+	
 
 	public long getOid() {
 		return oid;
@@ -110,6 +97,12 @@ public class User {
 		this.last_access = last_access;
 	}
 	
-	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	
 }

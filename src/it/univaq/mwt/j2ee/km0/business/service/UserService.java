@@ -27,6 +27,8 @@ public interface UserService {
 	List<Seller> viewAllSellers() throws BusinessException;
 	
 	List<Seller> getSellersFromPaidCarts() throws BusinessException;
+
+	User findUserByPK(long oid) throws BusinessException;
 	
 
 }
