@@ -1,7 +1,8 @@
-package it.univaq.mwt.j2ee.km0.business;
+package it.univaq.mwt.j2ee.km0.business.service;
 
 import java.util.List;
 
+import it.univaq.mwt.j2ee.km0.business.BusinessException;
 import it.univaq.mwt.j2ee.km0.business.model.Seller;
 import it.univaq.mwt.j2ee.km0.business.model.User;
 

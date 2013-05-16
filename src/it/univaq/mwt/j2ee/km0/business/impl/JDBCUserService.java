@@ -3,9 +3,9 @@ package it.univaq.mwt.j2ee.km0.business.impl;
 import java.util.List;
 
 import it.univaq.mwt.j2ee.km0.business.BusinessException;
-import it.univaq.mwt.j2ee.km0.business.UserService;
 import it.univaq.mwt.j2ee.km0.business.model.Seller;
 import it.univaq.mwt.j2ee.km0.business.model.User;
+import it.univaq.mwt.j2ee.km0.business.service.UserService;
 
 public class JDBCUserService implements UserService{
 

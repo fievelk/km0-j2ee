@@ -18,8 +18,21 @@ public class User {
 	public User() {
 		
 	}
-	
-	
+
+	public User(String name, String surname, String email, String password,
+			Date created, Date date_of_birth, Date last_access, String address) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
+		this.password = password;
+		this.created = created;
+		this.date_of_birth = date_of_birth;
+		this.last_access = last_access;
+		this.address = address;
+	}
+
+
 
 	public User(long oid, String name, String surname, String email,
 			String password, Date created, Date date_of_birth,
