@@ -32,8 +32,6 @@ public class User {
 		this.address = address;
 	}
 
-
-
 	public User(long oid, String name, String surname, String email,
 			String password, Date created, Date date_of_birth,
 			Date last_access, String address) {

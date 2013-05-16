@@ -1,4 +1,4 @@
-package it.univaq.mwt.j2ee.km0.presentation;
+package it.univaq.mwt.j2ee.km0.presentation.users;
 
 import it.univaq.mwt.j2ee.km0.business.BusinessException;
 import it.univaq.mwt.j2ee.km0.business.impl.JDBCUserService;
