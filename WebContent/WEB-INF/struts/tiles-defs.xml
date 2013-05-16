@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 1.3//EN"
+        "http://struts.apache.org/dtds/tiles-config_1_3.dtd">
+
+<tiles-definitions>
+
+    <definition name="standard" path="/layout/layout.jsp">
+        <put name="footer" value="/layout/footer.jsp"/>
+        <put name="menu" value="/layout/menu.jsp"/>
+    </definition>
+    
+    <definition name="common.index" extends="standard">
+        <put name="body" value="/common/index.jsp"/>
+    </definition>
+    
+    <definition name="titles.views" extends="standard">
+        <put name="body" value="/titles/titleviews.jsp"/>
+    </definition>
+    
+    <definition name="titles.inserttitle" extends="standard" controllerClass="it.univaq.mwt.j2ee.library.presentation.titles.TitleKindTilesAction">
+        <put name="action" value="/titles/insert.do"/>
+        <put name="body" value="/titles/titleform.jsp"/>
+    </definition>    
+
+	<definition name="titles.updatetitle" extends="standard" controllerClass="it.univaq.mwt.j2ee.library.presentation.titles.TitleKindTilesAction">
+        <put name="action" value="/titles/update.do"/>
+        <put name="body" value="/titles/titleform.jsp"/>
+    </definition>    
+
+</tiles-definitions>
