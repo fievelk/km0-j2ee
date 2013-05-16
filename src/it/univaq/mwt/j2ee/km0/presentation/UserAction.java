@@ -36,12 +36,12 @@ public class UserAction extends MappingDispatchAction{
 		}
 		String address = req.getParameter("adress");
 		User user = new User (name, surname, email, password, created, date_of_birth, last_access, address);
-		UserService service = new JDBCUserService();
+		/*UserService service = new JDBCUserService();
 		try {
 			service.createUser(user);
 		} catch (BusinessException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		
 		return mapping.findForward("null");
