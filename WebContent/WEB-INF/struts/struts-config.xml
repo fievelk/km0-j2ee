@@ -3,13 +3,14 @@
         "http://struts.apache.org/dtds/struts-config_1_3.dtd">
         
 <struts-config>
-
-	<action-mappings>
-		<action path="/products/view" type="it.univaq.mwt.j2ee.km0.presentation.products.ProductAction">
-		<forward name="success" path="/products/productviews.jsp" />
+<action-mappings>
+		<action path="/products/views" 
+				type="it.univaq.mwt.j2ee.km0.presentation.products.ProductAction"
+				parameter="views">
+			<forward name="success" path="/products/productlist.jsp"/>
+		
 		</action>
-	</action-mappings>
-
+</action-mappings>
 <!-- ========== Message Resources Definitions ============================ -->
     <message-resources null="false" parameter="library"/>
     

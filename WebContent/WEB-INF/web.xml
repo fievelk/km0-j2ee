@@ -2,6 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>km0</display-name>
   
+<<<<<<< HEAD
   	<servlet>
 		<servlet-name>action</servlet-name>
 		<servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
@@ -20,12 +21,30 @@
 		<servlet-name>action</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+=======
+  <servlet>
+    <servlet-name>action</servlet-name>
+    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>/WEB-INF/struts/struts-config.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+>>>>>>> Crea la ProductAction e il forward a una pagina di prova
 
-	<listener>
-		<listener-class>it.univaq.mwt.j2ee.library.presentation.common.LibraryServletContextListener</listener-class>
-	</listener>
   
   <welcome-file-list>
     <welcome-file>index.do</welcome-file>
   </welcome-file-list>
+<<<<<<< HEAD
 </web-app>
+=======
+  
+</web-app>
+>>>>>>> Crea la ProductAction e il forward a una pagina di prova
