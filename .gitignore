@@ -9,3 +9,5 @@ build/
 *.war
 *.ear
 /build
+.project
+.settings/
