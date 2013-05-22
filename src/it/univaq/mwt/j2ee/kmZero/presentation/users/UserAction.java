@@ -1,10 +1,10 @@
-package it.univaq.mwt.j2ee.km0.presentation.users;
+package it.univaq.mwt.j2ee.kmZero.presentation.users;
 
-import it.univaq.mwt.j2ee.km0.business.BusinessException;
-import it.univaq.mwt.j2ee.km0.business.KmZeroBusinessFactory;
-import it.univaq.mwt.j2ee.km0.business.impl.JDBCUserService;
-import it.univaq.mwt.j2ee.km0.business.model.User;
-import it.univaq.mwt.j2ee.km0.business.service.UserService;
+import it.univaq.mwt.j2ee.kmZero.business.BusinessException;
+import it.univaq.mwt.j2ee.kmZero.business.KmZeroBusinessFactory;
+import it.univaq.mwt.j2ee.kmZero.business.impl.JDBCUserService;
+import it.univaq.mwt.j2ee.kmZero.business.model.User;
+import it.univaq.mwt.j2ee.kmZero.business.service.UserService;
 
 import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;

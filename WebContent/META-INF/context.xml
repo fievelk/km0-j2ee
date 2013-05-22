@@ -1,8 +1,8 @@
-<Context path="/library">
+<Context path="/kmzero">
 
-    <Resource name="jdbc/km0db" scope="Unshareable" type="javax.sql.DataSource"
+    <Resource name="jdbc/kmzerodb" scope="Unshareable" type="javax.sql.DataSource"
               maxActive="100" maxIdle="30" maxWait="5000"
-              username="km0" password="km0" driverClassName="oracle.jdbc.OracleDriver"
+              username="kmzero" password="kmzero" driverClassName="oracle.jdbc.OracleDriver"
               url="jdbc:oracle:thin:@127.0.0.1:1521:XE"/>
-         
+
 </Context>

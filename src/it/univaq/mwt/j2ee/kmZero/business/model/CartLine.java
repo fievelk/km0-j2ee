@@ -1,4 +1,4 @@
-package it.univaq.mwt.j2ee.km0.business.model;
+package it.univaq.mwt.j2ee.kmZero.business.model;
 
 public class CartLine {
 

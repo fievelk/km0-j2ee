@@ -1,8 +1,9 @@
-package it.univaq.mwt.j2ee.km0.presentation.products;
+package it.univaq.mwt.j2ee.kmZero.presentation.products;
 
-import it.univaq.mwt.j2ee.km0.business.KmZeroBusinessFactory;
-import it.univaq.mwt.j2ee.km0.business.model.Product;
-import it.univaq.mwt.j2ee.km0.presentation.products.ProductForm;
+import it.univaq.mwt.j2ee.kmZero.business.KmZeroBusinessFactory;
+import it.univaq.mwt.j2ee.kmZero.business.model.Product;
+import it.univaq.mwt.j2ee.kmZero.business.service.ProductService;
+import it.univaq.mwt.j2ee.kmZero.presentation.products.ProductForm;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

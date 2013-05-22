@@ -1,7 +1,7 @@
-package it.univaq.mwt.j2ee.km0.presentation.common;
+package it.univaq.mwt.j2ee.kmZero.presentation.common;
 
-import it.univaq.mwt.j2ee.km0.business.KmZeroBusinessFactory;
-import it.univaq.mwt.j2ee.km0.business.impl.JDBCKmZeroBusinessFactory;
+import it.univaq.mwt.j2ee.kmZero.business.KmZeroBusinessFactory;
+import it.univaq.mwt.j2ee.kmZero.business.impl.JDBCKmZeroBusinessFactory;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -16,8 +16,8 @@ public class KmZeroServletContextListener implements ServletContextListener{
 	public void contextInitialized(ServletContextEvent arg0) {
 		try {
 			Context initCtx = new InitialContext();
-			Context envCtx = ( Context ) initCtx.lookup( "java:comp/env" );
-			DataSource dataSource = ( DataSource ) envCtx.lookup( "jdbc/km0db" );
+			Context envCtx = ( Context ) initCtx.lookup( "java:comp/env" ); 
+			DataSource dataSource = ( DataSource ) envCtx.lookup( "jdbc/kmzerodb" );
 			KmZeroBusinessFactory.setInstance(new JDBCKmZeroBusinessFactory(dataSource));
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block

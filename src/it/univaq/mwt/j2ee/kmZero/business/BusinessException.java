@@ -1,4 +1,4 @@
-package it.univaq.mwt.j2ee.km0.business;
+package it.univaq.mwt.j2ee.kmZero.business;
 
 public class BusinessException extends Exception{
 

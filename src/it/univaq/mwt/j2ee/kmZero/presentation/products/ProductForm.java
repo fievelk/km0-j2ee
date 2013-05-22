@@ -1,7 +1,7 @@
-package it.univaq.mwt.j2ee.km0.presentation.products;
+package it.univaq.mwt.j2ee.kmZero.presentation.products;
 
-import it.univaq.mwt.j2ee.km0.business.model.Category;
-import it.univaq.mwt.j2ee.km0.business.model.Image;
+import it.univaq.mwt.j2ee.kmZero.business.model.Category;
+import it.univaq.mwt.j2ee.kmZero.business.model.Image;
 
 import java.util.Collection;
 import java.util.Date;

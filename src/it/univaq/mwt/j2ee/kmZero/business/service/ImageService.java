@@ -1,7 +1,7 @@
-package it.univaq.mwt.j2ee.km0.business.service;
+package it.univaq.mwt.j2ee.kmZero.business.service;
 
-import it.univaq.mwt.j2ee.km0.business.BusinessException;
-import it.univaq.mwt.j2ee.km0.business.model.Image;
+import it.univaq.mwt.j2ee.kmZero.business.BusinessException;
+import it.univaq.mwt.j2ee.kmZero.business.model.Image;
 
 public interface ImageService {
 	

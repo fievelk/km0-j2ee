@@ -1,9 +1,9 @@
-package it.univaq.mwt.j2ee.km0.business;
+package it.univaq.mwt.j2ee.kmZero.business;
 
-import it.univaq.mwt.j2ee.km0.business.service.CartService;
-import it.univaq.mwt.j2ee.km0.business.service.ImageService;
-import it.univaq.mwt.j2ee.km0.business.service.ProductService;
-import it.univaq.mwt.j2ee.km0.business.service.UserService;
+import it.univaq.mwt.j2ee.kmZero.business.service.CartService;
+import it.univaq.mwt.j2ee.kmZero.business.service.ImageService;
+import it.univaq.mwt.j2ee.kmZero.business.service.ProductService;
+import it.univaq.mwt.j2ee.kmZero.business.service.UserService;
 
 public abstract class KmZeroBusinessFactory {
 	

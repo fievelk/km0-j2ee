@@ -5,13 +5,14 @@
 <struts-config>
 <action-mappings>
 		<action path="/products/views" 
-				type="it.univaq.mwt.j2ee.km0.presentation.products.ProductAction"
+				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"
 				parameter="views">
 			<forward name="success" path="/products/productlist.jsp"/>
 		
 		</action>
 </action-mappings>
-<!-- ========== Message Resources Definitions ============================ -->
+
+	<!-- ========== Message Resources Definitions ============================ -->
     <message-resources null="false" parameter="library"/>
     
 	<!-- ========== Plug Ins Configuration ================================= -->

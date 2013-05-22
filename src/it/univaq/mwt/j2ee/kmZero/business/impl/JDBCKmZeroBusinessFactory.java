@@ -1,12 +1,12 @@
-package it.univaq.mwt.j2ee.km0.business.impl;
+package it.univaq.mwt.j2ee.kmZero.business.impl;
 
 import javax.sql.DataSource;
 
-import it.univaq.mwt.j2ee.km0.business.KmZeroBusinessFactory;
-import it.univaq.mwt.j2ee.km0.business.service.CartService;
-import it.univaq.mwt.j2ee.km0.business.service.ImageService;
-import it.univaq.mwt.j2ee.km0.business.service.ProductService;
-import it.univaq.mwt.j2ee.km0.business.service.UserService;
+import it.univaq.mwt.j2ee.kmZero.business.KmZeroBusinessFactory;
+import it.univaq.mwt.j2ee.kmZero.business.service.CartService;
+import it.univaq.mwt.j2ee.kmZero.business.service.ImageService;
+import it.univaq.mwt.j2ee.kmZero.business.service.ProductService;
+import it.univaq.mwt.j2ee.kmZero.business.service.UserService;
 
 public class JDBCKmZeroBusinessFactory extends KmZeroBusinessFactory{
 	

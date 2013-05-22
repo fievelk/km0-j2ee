@@ -1,10 +1,10 @@
-package it.univaq.mwt.j2ee.km0.business.service;
+package it.univaq.mwt.j2ee.kmZero.business.service;
 
 import java.util.List;
 
-import it.univaq.mwt.j2ee.km0.business.BusinessException;
-import it.univaq.mwt.j2ee.km0.business.model.Cart;
-import it.univaq.mwt.j2ee.km0.business.model.CartLine;
+import it.univaq.mwt.j2ee.kmZero.business.BusinessException;
+import it.univaq.mwt.j2ee.kmZero.business.model.Cart;
+import it.univaq.mwt.j2ee.kmZero.business.model.CartLine;
 
 public interface CartService {
 	

@@ -1,13 +1,13 @@
-package it.univaq.mwt.j2ee.km0.business.impl;
+package it.univaq.mwt.j2ee.kmZero.business.impl;
 
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import it.univaq.mwt.j2ee.km0.business.BusinessException;
-import it.univaq.mwt.j2ee.km0.business.model.Seller;
-import it.univaq.mwt.j2ee.km0.business.model.User;
-import it.univaq.mwt.j2ee.km0.business.service.UserService;
+import it.univaq.mwt.j2ee.kmZero.business.BusinessException;
+import it.univaq.mwt.j2ee.kmZero.business.model.Seller;
+import it.univaq.mwt.j2ee.kmZero.business.model.User;
+import it.univaq.mwt.j2ee.kmZero.business.service.UserService;
 
 public class JDBCUserService implements UserService{
 	
