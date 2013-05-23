@@ -14,6 +14,7 @@ import it.univaq.mwt.j2ee.kmZero.business.model.Category;
 import it.univaq.mwt.j2ee.kmZero.business.model.Image;
 import it.univaq.mwt.j2ee.kmZero.business.model.Product;
 import it.univaq.mwt.j2ee.kmZero.business.service.ProductService;
+import it.univaq.mwt.j2ee.kmZero.common.DateUtility;
 
 public class JDBCProductService implements ProductService{
 
@@ -31,17 +32,51 @@ public class JDBCProductService implements ProductService{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
+		/* Date conversion from java.util.Date to java.sql.date format
+		java.sql.Date sqldate_in = new java.sql.Date(product.getDate_in().getTime());
+		java.sql.Date sqldate_out = new java.sql.Date(product.getDate_in().getTime());
+		*/
+		
+		/* Data conversion with common.DateUtility class created on purpose */
+		java.sql.Date sqlDate_in = DateUtility.convertUtilToSql(product.getDate_in());
+		java.sql.Date sqlDate_out = DateUtility.convertUtilToSql(product.getDate_out());
+		
 		try {
 			connection = dataSource.getConnection();
 			
-			String sql = "INSERT INTO products (id_product, name, description, price, date_in, date_out, category_id, image_id)"
-					
-					
+			String sql = "INSERT INTO products (id, name, description, " +
+												"price, date_in, date_out, " +
+												"categories_id, sellers_users_id)" +
+												"VALUES (PRODUCTS_SEQ.NEXTVAL,?,?,?,?,?,?,?)";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, product.getName());
+			preparedStatement.setString(2, product.getDescription());
+			preparedStatement.setFloat(3, product.getPrice());
+			preparedStatement.setDate(4, sqlDate_in);
+			preparedStatement.setDate(5, sqlDate_out);
+			preparedStatement.setLong(6, 1); /*Da sostituire con l'id della categoria. Va inserita la categoria tra i parametri di Product */
+			preparedStatement.setLong(7, 2); /*Da sostituire con l'id del Seller. Va inserito il Seller tra i parametri di Product */
+			
+			preparedStatement.executeUpdate();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new BusinessException();
+		} finally {
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
-		
 		
 	}
 
@@ -87,4 +122,8 @@ public class JDBCProductService implements ProductService{
 		return null;
 	}
 
+	private java.sql.Date convertDateToSqlFormat(Date date) {
+		return new java.sql.Date(date.getTime());
+	}
+	
 }
