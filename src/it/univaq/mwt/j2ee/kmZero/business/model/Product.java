@@ -9,8 +9,8 @@ public class Product {
 	private String name;
 	private String description;
 	private float price;
-	private Date data_in;
-	private Date data_out;
+	private Date date_in;
+	private Date date_out;
 	private Category category;
 	private Collection<Image> images;
 	private float rating;
@@ -20,15 +20,15 @@ public class Product {
 	}
 
 	public Product(long oid, String name, String description, float price,
-			Date data_in, Date data_out, Category category,
+			Date date_in, Date date_out, Category category,
 			Collection<Image> images) {
 		super();
 		this.oid = oid;
 		this.name = name;
 		this.description = description;
 		this.price = price;
-		this.data_in = data_in;
-		this.data_out = data_out;
+		this.date_in = date_in;
+		this.date_out = date_out;
 		this.category = category;
 		this.images = images;
 	}
@@ -57,17 +57,17 @@ public class Product {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	public Date getData_in() {
-		return data_in;
+	public Date getDate_in() {
+		return date_in;
 	}
-	public void setData_in(Date data_in) {
-		this.data_in = data_in;
+	public void setDate_in(Date date_in) {
+		this.date_in = date_in;
 	}
-	public Date getData_out() {
-		return data_out;
+	public Date getDate_out() {
+		return date_out;
 	}
-	public void setData_out(Date data_out) {
-		this.data_out = data_out;
+	public void setDate_out(Date date_out) {
+		this.date_out = date_out;
 	}
 	public Category getCategory() {
 		return category;
