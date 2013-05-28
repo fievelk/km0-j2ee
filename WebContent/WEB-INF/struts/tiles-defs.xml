@@ -13,6 +13,7 @@
         <put name="body" value="/common/index.jsp"/>
     </definition>
     
+    <!-- ancora da utilizzare! -->
     <definition name="products.views" extends="standard">
         <put name="body" value="/products/productslist.jsp"/>
     </definition>

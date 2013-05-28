@@ -11,6 +11,9 @@ public class Seller extends User {
 	public Seller() {
 		super();
 	}
+	
+	public Seller(Long sellerId) {
+	}
 
 	public Seller(long oid, String name, String surname, String email, String password, Date created, Date date_of_birth,
 			Date last_access, String address, String p_iva, String cod_fisc, String company) {

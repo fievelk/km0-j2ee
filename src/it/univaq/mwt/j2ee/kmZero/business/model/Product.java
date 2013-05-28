@@ -14,6 +14,7 @@ public class Product {
 	private Category category;
 	private Collection<Image> images;
 	private float rating;
+	private Seller seller;
 
 	public Product() {
 		super();
@@ -21,7 +22,7 @@ public class Product {
 
 	public Product(long oid, String name, String description, float price,
 			Date date_in, Date date_out, Category category,
-			Collection<Image> images) {
+			Collection<Image> images, Seller seller) {
 		super();
 		this.oid = oid;
 		this.name = name;
@@ -31,8 +32,25 @@ public class Product {
 		this.date_out = date_out;
 		this.category = category;
 		this.images = images;
+		this.seller = seller;
 	}
 	
+	/* Costruttore per l'inserimento senza immagini e date */
+	public Product(long oid, String name, String description, float price,
+			Category category, Seller seller) {
+		super();
+		this.oid = oid;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.category = category;
+		this.seller = seller;
+	}
+	
+	public void setSeller(Seller seller) {
+		this.seller = seller;
+	}
+
 	public long getOid() {
 		return oid;
 	}
@@ -89,6 +107,10 @@ public class Product {
 
 	public void setRating(float rating) {
 		this.rating = rating;
+	}
+	
+	public Seller getSeller() {
+		return seller;
 	}
 	
 }

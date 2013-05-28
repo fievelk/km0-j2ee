@@ -1,5 +1,8 @@
 package it.univaq.mwt.j2ee.kmZero.presentation.products;
 
+import java.util.List;
+
+import it.univaq.mwt.j2ee.kmZero.business.BusinessException;
 import it.univaq.mwt.j2ee.kmZero.business.KmZeroBusinessFactory;
 import it.univaq.mwt.j2ee.kmZero.business.model.Product;
 import it.univaq.mwt.j2ee.kmZero.business.service.ProductService;
@@ -15,11 +18,30 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.MappingDispatchAction;
 
 public class ProductAction extends MappingDispatchAction {
+	
+/* DA DECOMMENTARE QUANDO SI USERà DATATABLES
 
 	public ActionForward views(ActionMapping mapping, ActionForm form, 
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		
+		return mapping.findForward("success");
+	}
+*/
+	
+	public ActionForward views(ActionMapping mapping, ActionForm form, 
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		
+		try {
+		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
+		ProductService service = factory.getProductService();
+		List<Product> products = service.viewProducts();
+		request.setAttribute("products", products);
+		
+		} catch (BusinessException e){
+		    e.printStackTrace();
+		}
 		return mapping.findForward("success");
 	}
 	

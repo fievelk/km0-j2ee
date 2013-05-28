@@ -2,7 +2,9 @@ package it.univaq.mwt.j2ee.kmZero.business.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +15,7 @@ import it.univaq.mwt.j2ee.kmZero.business.BusinessException;
 import it.univaq.mwt.j2ee.kmZero.business.model.Category;
 import it.univaq.mwt.j2ee.kmZero.business.model.Image;
 import it.univaq.mwt.j2ee.kmZero.business.model.Product;
+import it.univaq.mwt.j2ee.kmZero.business.model.Seller;
 import it.univaq.mwt.j2ee.kmZero.business.service.ProductService;
 import it.univaq.mwt.j2ee.kmZero.common.DateUtility;
 
@@ -48,6 +51,7 @@ public class JDBCProductService implements ProductService{
 												"price, date_in, date_out, " +
 												"categories_id, sellers_users_id)" +
 												"VALUES (PRODUCTS_SEQ.NEXTVAL,?,?,?,?,?,?,?)";
+			
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, product.getName());
 			preparedStatement.setString(2, product.getDescription());
@@ -55,7 +59,7 @@ public class JDBCProductService implements ProductService{
 			preparedStatement.setDate(4, sqlDate_in);
 			preparedStatement.setDate(5, sqlDate_out);
 			preparedStatement.setLong(6, 1); /*Da sostituire con l'id della categoria. Va inserita la categoria tra i parametri di Product */
-			preparedStatement.setLong(7, 2); /*Da sostituire con l'id del Seller. Va inserito il Seller tra i parametri di Product */
+			preparedStatement.setLong(7, 1); /*Da sostituire con l'id del Seller. Va inserito il Seller tra i parametri di Product */
 			
 			preparedStatement.executeUpdate();
 			
@@ -92,12 +96,91 @@ public class JDBCProductService implements ProductService{
 		
 	}
 
-	@Override
+	
 	public List<Product> viewProducts() throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Product> result = new ArrayList<Product>();
+
+				Long id = 2L;
+				String name = "productname";
+				String description = "description";
+				float price = 7.55f;
+				Long categoryId= 1L;
+				String categoryName = "category_name";
+				Long sellerId= 1L;
+				//String sellerName = rs.getString("seller_name");
+				
+				Category category = new Category(categoryId, categoryName);
+				Seller seller = new Seller(sellerId);
+				
+				Product product = new Product(id, name, description, price, category, seller);
+				
+				result.add(product);
+		
+				return result;
+	}
+	
+/*	@Override
+	public List<Product> viewProducts() throws BusinessException {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		List<Product> result = new ArrayList<Product>();
+		
+		try {
+			connection = dataSource.getConnection();
+			//String sql = "SELECT p.*, cat.name as category_name, sell.name as seller_name FROM products p, categories cat, sellers sell WHERE p.categories_id=cat.id, p.sellers_users_id=sell.id ORDER BY p.id";
+			String sql = "SELECT p.*, cat.name as category_name, sell.name as seller_name FROM products p, categories cat, sellers sell WHERE p.categories_id=cat.id, p.sellers_users_id=sell.id ORDER BY p.id";
+			preparedStatement = connection.prepareStatement(sql);
+			
+			rs = preparedStatement.executeQuery();
+		
+			while (rs.next()) {
+				Long id = rs.getLong("id");
+				String name = rs.getString("name");
+				String description = rs.getString("description");
+				float price = rs.getFloat("price");
+				Long categoryId= rs.getLong("categories_id");
+				String categoryName = rs.getString("category_name");
+				Long sellerId= rs.getLong("sellers_users_id");
+				//String sellerName = rs.getString("seller_name");
+				
+				Category category = new Category(categoryId, categoryName);
+				Seller seller = new Seller(sellerId);
+				
+				Product product = new Product(id, name, description, price, category, seller);
+				
+				result.add(product);
+			}			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
+		
+		return result;
 	}
 
+*/
+	
 	@Override
 	public void createCategory(Category category) throws BusinessException {
 		// TODO Auto-generated method stub

@@ -17,9 +17,10 @@ public abstract class KmZeroBusinessFactory {
 		instance = factory;
 	}
 	
+	public abstract ProductService getProductService();
+	
 	public abstract UserService getUserService();
 	public abstract CartService getCartService();
-	public abstract ProductService getProductService();
 	public abstract ImageService getImageService();
 
 }

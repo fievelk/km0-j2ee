@@ -14,6 +14,11 @@
     <servlet-name>action</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
+  
+  	<listener>
+		<listener-class>it.univaq.mwt.j2ee.kmZero.presentation.common.KmZeroServletContextListener</listener-class>
+	</listener>
+  
   <welcome-file-list>
     <welcome-file>index.do</welcome-file>
   </welcome-file-list>

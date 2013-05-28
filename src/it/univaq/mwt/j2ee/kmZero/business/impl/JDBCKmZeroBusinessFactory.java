@@ -30,8 +30,7 @@ public class JDBCKmZeroBusinessFactory extends KmZeroBusinessFactory{
 
 	@Override
 	public ProductService getProductService() {
-		// TODO Auto-generated method stub
-		return null;
+		return new JDBCProductService(dataSource);
 	}
 
 	@Override
