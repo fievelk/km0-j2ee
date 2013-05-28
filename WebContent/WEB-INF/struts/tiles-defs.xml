@@ -13,9 +13,12 @@
         <put name="body" value="/common/index.jsp"/>
     </definition>
     
-    <definition name="titles.views" extends="standard">
-        <put name="body" value="/titles/titleviews.jsp"/>
+    <definition name="products.views" extends="standard">
+        <put name="body" value="/products/productslist.jsp"/>
     </definition>
+    
+    
+    <!-- Old Library tiles -->
     
     <definition name="titles.inserttitle" extends="standard" controllerClass="it.univaq.mwt.j2ee.library.presentation.titles.TitleKindTilesAction">
         <put name="action" value="/titles/insert.do"/>

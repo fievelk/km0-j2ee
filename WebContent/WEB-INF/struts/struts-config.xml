@@ -7,7 +7,7 @@
 		<action path="/products/views" 
 				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"
 				parameter="views">
-			<forward name="success" path="/products/productlist.jsp"/>
+			<forward name="success" path="/products/productslist.jsp"/>
 		
 		</action>
 </action-mappings>
