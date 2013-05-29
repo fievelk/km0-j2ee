@@ -16,6 +16,7 @@ import it.univaq.mwt.j2ee.kmZero.business.model.Category;
 import it.univaq.mwt.j2ee.kmZero.business.model.Image;
 import it.univaq.mwt.j2ee.kmZero.business.model.Product;
 import it.univaq.mwt.j2ee.kmZero.business.model.Seller;
+import it.univaq.mwt.j2ee.kmZero.business.model.User;
 import it.univaq.mwt.j2ee.kmZero.business.service.ProductService;
 import it.univaq.mwt.j2ee.kmZero.common.DateUtility;
 
@@ -96,7 +97,7 @@ public class JDBCProductService implements ProductService{
 		
 	}
 
-	
+	/*
 	public List<Product> viewProducts() throws BusinessException {
 		List<Product> result = new ArrayList<Product>();
 
@@ -106,7 +107,7 @@ public class JDBCProductService implements ProductService{
 				float price = 7.55f;
 				Long categoryId= 1L;
 				String categoryName = "category_name";
-				Long sellerId= 1L;
+				Long sellerId= 2L;
 				//String sellerName = rs.getString("seller_name");
 				
 				Category category = new Category(categoryId, categoryName);
@@ -118,8 +119,9 @@ public class JDBCProductService implements ProductService{
 		
 				return result;
 	}
-	
-/*	@Override
+	*/
+
+	@Override
 	public List<Product> viewProducts() throws BusinessException {
 		
 		Connection connection = null;
@@ -129,8 +131,16 @@ public class JDBCProductService implements ProductService{
 		
 		try {
 			connection = dataSource.getConnection();
-			//String sql = "SELECT p.*, cat.name as category_name, sell.name as seller_name FROM products p, categories cat, sellers sell WHERE p.categories_id=cat.id, p.sellers_users_id=sell.id ORDER BY p.id";
-			String sql = "SELECT p.*, cat.name as category_name, sell.name as seller_name FROM products p, categories cat, sellers sell WHERE p.categories_id=cat.id, p.sellers_users_id=sell.id ORDER BY p.id";
+			String sql = "SELECT p.*, cat.name as category_name, s.company seller_company " +
+						"FROM products p, categories cat, users u, sellers s " +
+						"WHERE p.categories_id=cat.id AND p.sellers_users_id=u.id";
+			
+/*			
+ 			String sql = "SELECT p.*, cat.name as category_name, u.name as user_name, s.company seller_company " +
+					"FROM products p, categories cat, users u, sellers s " +
+					"WHERE p.categories_id=cat.id AND p.sellers_users_id=u.id";
+*/		
+					
 			preparedStatement = connection.prepareStatement(sql);
 			
 			rs = preparedStatement.executeQuery();
@@ -142,15 +152,19 @@ public class JDBCProductService implements ProductService{
 				float price = rs.getFloat("price");
 				Long categoryId= rs.getLong("categories_id");
 				String categoryName = rs.getString("category_name");
-				Long sellerId= rs.getLong("sellers_users_id");
-				//String sellerName = rs.getString("seller_name");
+				String company = rs.getString("seller_company");
+				Long userId= rs.getLong("sellers_users_id");
+				//String userName = rs.getString("user_name");
 				
 				Category category = new Category(categoryId, categoryName);
-				Seller seller = new Seller(sellerId);
+				
+				Seller seller = new Seller(userId, company); // Instantiate a Seller object, using its User oid and company)
+				//System.out.println("Seller company = " + seller.getCompany()); // Checks if it works
 				
 				Product product = new Product(id, name, description, price, category, seller);
 				
 				result.add(product);
+				
 			}			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -179,7 +193,6 @@ public class JDBCProductService implements ProductService{
 		return result;
 	}
 
-*/
 	
 	@Override
 	public void createCategory(Category category) throws BusinessException {
@@ -207,6 +220,11 @@ public class JDBCProductService implements ProductService{
 
 	private java.sql.Date convertDateToSqlFormat(Date date) {
 		return new java.sql.Date(date.getTime());
+	}
+
+	public static void main(String[] args) {
+		System.out.println("prova");
+		
 	}
 	
 }

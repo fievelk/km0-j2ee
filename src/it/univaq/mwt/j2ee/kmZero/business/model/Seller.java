@@ -8,11 +8,10 @@ public class Seller extends User {
 	private String cod_fisc;
 	private String company;
 	
-	public Seller() {
-		super();
-	}
-	
-	public Seller(Long sellerId) {
+	// This constructor passes the oid to the User class, instantiating an User object with that oid
+	public Seller(Long oid, String company) { 
+		super(oid);
+		this.company = company;
 	}
 
 	public Seller(long oid, String name, String surname, String email, String password, Date created, Date date_of_birth,

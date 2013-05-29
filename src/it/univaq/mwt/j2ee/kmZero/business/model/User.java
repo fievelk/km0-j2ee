@@ -19,6 +19,10 @@ public class User {
 		
 	}
 
+	public User(long oid) {
+		this.oid = oid;
+	}
+	
 	public User(String name, String surname, String email, String password,
 			Date created, Date date_of_birth, Date last_access, String address) {
 		super();
