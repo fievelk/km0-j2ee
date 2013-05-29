@@ -4,10 +4,15 @@
         
 <struts-config>
 <action-mappings>
+
+		<action path="/index" 
+				type="org.apache.struts.actions.ForwardAction" 
+        		parameter="common.index"/>
+
 		<action path="/products/views" 
 				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"
 				parameter="views">
-			<forward name="success" path="/products/productslist.jsp"/>
+			<forward name="success" path="products.views"/>
 		
 		</action>
 </action-mappings>
