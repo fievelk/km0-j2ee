@@ -16,8 +16,10 @@ public class ProductForm extends ValidatorForm {
 	private float price;
 	//private Date date_in;
 	//private Date date_out;
-	//private Category category; // Va inserito un long al posto del tipo Category?
+	private long categoryId; // Va inserito un long al posto del tipo Category?
+
 	//private Collection<Image> images;
+	
 	public long getOid() {
 		return oid;
 	}
@@ -41,6 +43,15 @@ public class ProductForm extends ValidatorForm {
 	}
 	public void setPrice(float price) {
 		this.price = price;
+	}
+	
+	public long getCategoryId() {
+		return categoryId;
+		
+	}
+	
+	public void setCategoryId(long categoryId) {
+		this.categoryId = categoryId;
 	}
 
 /*	public Date getDate_in() {

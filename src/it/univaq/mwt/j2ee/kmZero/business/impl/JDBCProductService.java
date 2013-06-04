@@ -48,32 +48,18 @@ public class JDBCProductService implements ProductService{
 		try {
 			connection = dataSource.getConnection();
 			
-			String sql = "INSERT INTO products (id, name, description, price)" +
-					"VALUES (PRODUCTS_SEQ.NEXTVAL,?,?,?)";
+			String sql = "INSERT INTO products (id, name, description, price, categories_id, sellers_users_id)" +
+					"VALUES (PRODUCTS_SEQ.NEXTVAL,?,?,?,?,?)";
 			
 			preparedStatement = connection.prepareStatement(sql);
 			
 			preparedStatement.setString(1, product.getName());
 			preparedStatement.setString(2, product.getDescription());
 			preparedStatement.setFloat(3, product.getPrice());
-			//preparedStatement.setLong(4, product.getCategory().getOid());
-			//preparedStatement.setLong(5, product.getSeller().getOid());
+			preparedStatement.setLong(4, product.getCategory().getOid());
+			preparedStatement.setLong(5, 200); // Ho impostato l'id del seller a 200 per prova, poi andrà cambiato in maniera dinamica
+//			preparedStatement.setLong(5, product.getSeller().getOid());
 			
-			
-/*			String sql = "INSERT INTO products (id, name, description, " +
-												"price, date_in, date_out, " +
-												"categories_id, sellers_users_id)" +
-												"VALUES (PRODUCTS_SEQ.NEXTVAL,?,?,?,?,?,?,?)";
-			
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, product.getName());
-			preparedStatement.setString(2, product.getDescription());
-			preparedStatement.setFloat(3, product.getPrice());
-			preparedStatement.setDate(4, sqlDate_in);
-			preparedStatement.setDate(5, sqlDate_out);
-			preparedStatement.setLong(6, 1); Da sostituire con l'id della categoria. Va inserita la categoria tra i parametri di Product 
-			preparedStatement.setLong(7, 1); Da sostituire con l'id del Seller. Va inserito il Seller tra i parametri di Product 
-			*/
 			preparedStatement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -147,7 +133,6 @@ public class JDBCProductService implements ProductService{
 				Category category = new Category(categoryId, categoryName);
 				
 				Seller seller = new Seller(userId, company); // Instantiate a Seller object, using its User oid and company)
-				//System.out.println("Seller company = " + seller.getCompany()); // Checks if it works
 				
 				Product product = new Product(id, name, description, price, category, seller);
 				

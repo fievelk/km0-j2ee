@@ -47,15 +47,25 @@
 
 
 <div>
+    <label for="CategoryId">Categoria</label>
+    <div>
+		<html:select styleId="categoryId" property="categoryId">
+			<html:options collection="categories" property="oid" labelProperty="name"/>
+		</html:select>
+    </div>
+</div>
+
+
+<%-- <div>
     <label for="categoryId">Categoria</label>
     <div>
 		<select id="categoryId" name="categoryId">
-			<c:forEach items="${requestScope.titleKinds}" var="titleKind">
-				<option value="${titleKind.id}">${titleKind.name}</option>
+			<c:forEach items="${requestScope.categories}" var="category">
+				<option value="${category.oid}">${category.name}</option>
 			</c:forEach>
 		</select>
 	</div>
-</div>
+</div> --%>
 
 
 

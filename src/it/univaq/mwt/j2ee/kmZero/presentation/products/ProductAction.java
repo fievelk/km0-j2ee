@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.univaq.mwt.j2ee.kmZero.business.BusinessException;
 import it.univaq.mwt.j2ee.kmZero.business.KmZeroBusinessFactory;
+import it.univaq.mwt.j2ee.kmZero.business.model.Category;
 import it.univaq.mwt.j2ee.kmZero.business.model.Product;
 import it.univaq.mwt.j2ee.kmZero.business.service.ProductService;
 import it.univaq.mwt.j2ee.kmZero.presentation.products.ProductForm;
@@ -48,9 +49,10 @@ public class ProductAction extends MappingDispatchAction {
 	public ActionForward insert(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception {
 		ProductForm form = (ProductForm) actionForm;
 		Product product = new Product();
-		BeanUtils.copyProperties(product, form);
-		//ProductKind ProductKind = new ProductKind(form.getProductKindId());
-		//product.setProductKind(ProductKind);
+		BeanUtils.copyProperties(product, form); // Copia tutti gli attributi dal form
+		
+		Category category = new Category(form.getCategoryId()); // Costruisce la Category dal categoryId
+		product.setCategory(category); // set della Category nel Product (copyProperties non era in grado di farlo)
 
 		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
 		ProductService service = factory.getProductService();
