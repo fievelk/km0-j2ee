@@ -12,6 +12,7 @@
     
 		<ul class="nav">
 					<li><a href="${pageContext.request.contextPath}/products/views.do">Lista Prodotti</a></li>
+					<li><a href="${pageContext.request.contextPath}/products/insert_start.do">Aggiungi Prodotto</a></li>
 		</ul>
        </div>
      </div>

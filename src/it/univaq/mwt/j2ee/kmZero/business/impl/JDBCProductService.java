@@ -42,13 +42,25 @@ public class JDBCProductService implements ProductService{
 		*/
 		
 		/* Data conversion with common.DateUtility class created on purpose */
-		java.sql.Date sqlDate_in = DateUtility.convertUtilToSql(product.getDate_in());
-		java.sql.Date sqlDate_out = DateUtility.convertUtilToSql(product.getDate_out());
+		//java.sql.Date sqlDate_in = DateUtility.convertUtilToSql(product.getDate_in());
+		//java.sql.Date sqlDate_out = DateUtility.convertUtilToSql(product.getDate_out());
 		
 		try {
 			connection = dataSource.getConnection();
 			
-			String sql = "INSERT INTO products (id, name, description, " +
+			String sql = "INSERT INTO products (id, name, description, price)" +
+					"VALUES (PRODUCTS_SEQ.NEXTVAL,?,?,?)";
+			
+			preparedStatement = connection.prepareStatement(sql);
+			
+			preparedStatement.setString(1, product.getName());
+			preparedStatement.setString(2, product.getDescription());
+			preparedStatement.setFloat(3, product.getPrice());
+			//preparedStatement.setLong(4, product.getCategory().getOid());
+			//preparedStatement.setLong(5, product.getSeller().getOid());
+			
+			
+/*			String sql = "INSERT INTO products (id, name, description, " +
 												"price, date_in, date_out, " +
 												"categories_id, sellers_users_id)" +
 												"VALUES (PRODUCTS_SEQ.NEXTVAL,?,?,?,?,?,?,?)";
@@ -59,9 +71,9 @@ public class JDBCProductService implements ProductService{
 			preparedStatement.setFloat(3, product.getPrice());
 			preparedStatement.setDate(4, sqlDate_in);
 			preparedStatement.setDate(5, sqlDate_out);
-			preparedStatement.setLong(6, 1); /*Da sostituire con l'id della categoria. Va inserita la categoria tra i parametri di Product */
-			preparedStatement.setLong(7, 1); /*Da sostituire con l'id del Seller. Va inserito il Seller tra i parametri di Product */
-			
+			preparedStatement.setLong(6, 1); Da sostituire con l'id della categoria. Va inserita la categoria tra i parametri di Product 
+			preparedStatement.setLong(7, 1); Da sostituire con l'id del Seller. Va inserito il Seller tra i parametri di Product 
+			*/
 			preparedStatement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -96,30 +108,6 @@ public class JDBCProductService implements ProductService{
 		// TODO Auto-generated method stub
 		
 	}
-
-	/*
-	public List<Product> viewProducts() throws BusinessException {
-		List<Product> result = new ArrayList<Product>();
-
-				Long id = 2L;
-				String name = "productname";
-				String description = "description";
-				float price = 7.55f;
-				Long categoryId= 1L;
-				String categoryName = "category_name";
-				Long sellerId= 2L;
-				//String sellerName = rs.getString("seller_name");
-				
-				Category category = new Category(categoryId, categoryName);
-				Seller seller = new Seller(sellerId);
-				
-				Product product = new Product(id, name, description, price, category, seller);
-				
-				result.add(product);
-		
-				return result;
-	}
-	*/
 
 	@Override
 	public List<Product> viewProducts() throws BusinessException {
@@ -214,7 +202,15 @@ public class JDBCProductService implements ProductService{
 
 	@Override
 	public List<Category> findAllCategories() throws BusinessException {
-		// TODO Auto-generated method stub
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		List<Category> categories = new ArrayList<Category>();
+		
+		// Andare avanti
+		
+		
 		return null;
 	}
 

@@ -13,9 +13,15 @@
         <put name="body" value="/common/index.jsp"/>
     </definition>
     
-    <!-- ancora da utilizzare! -->
     <definition name="products.views" extends="standard">
         <put name="body" value="/products/productslist.jsp"/>
+    </definition>
+    
+    <!-- tile per la form di inserimento del Product -->
+    <definition name="products.insertproduct" extends="standard" 
+    			controllerClass="it.univaq.mwt.j2ee.kmZero.presentation.products.CategoriesTilesAction">
+    	<put name="action" value="/products/insert.do"></put>
+    	<put name="body" value="/products/insertproduct.jsp"></put>
     </definition>
     
     

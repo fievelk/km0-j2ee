@@ -3,6 +3,11 @@
         "http://struts.apache.org/dtds/struts-config_1_3.dtd">
         
 <struts-config>
+
+<form-beans>
+	<form-bean name="product_form" type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductForm"/>
+</form-beans>
+
 <action-mappings>
 
 		<action path="/index" 
@@ -13,8 +18,26 @@
 				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"
 				parameter="views">
 			<forward name="success" path="products.views"/>
-		
 		</action>
+		
+        <action path="/products/insert_start" 
+      	    	type="org.apache.struts.actions.ForwardAction"
+      	    	parameter="products.insertproduct"/>
+		
+		<action name="product_form" scope="request" 
+				validate="false" input="products.insertproduct"	
+				path="/products/insert" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"
+				parameter="insert">
+			<forward name="success" path="/products/views.do" redirect="true"/>
+		</action>
+		
+<!-- 		<action path="/products/insert_start" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"
+				parameter="insertStart">
+			<forward name="success" path="products.insertproduct"/>
+		</action>
+ -->		
 </action-mappings>
 
 	<!-- ========== Message Resources Definitions ============================ -->
