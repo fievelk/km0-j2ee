@@ -12,6 +12,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import java.security.MessageDigest;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,9 +29,9 @@ public class UserAction extends MappingDispatchAction{
 		return mapping.findForward("success");
 	}
 	
-	public ActionForward insertStart(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response){
+	/*public ActionForward insertStart(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response){
 		return mapping.findForward("form");
-	}
+	}*/
 	
 	public ActionForward insert (ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
 		UserForm form = (UserForm) actionForm;
@@ -41,7 +43,9 @@ public class UserAction extends MappingDispatchAction{
 		UserService service = factory.getUserService();
 		
 		try {
-			service.createUser(user);
+			if (form.getNew_password().equals(form.getConfirm_password())){
+				service.createUser(user);
+			}
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
@@ -73,13 +77,15 @@ public class UserAction extends MappingDispatchAction{
 		UserService service = factory.getUserService();
 
 		try {
-			service.updateUser(user);
+			/* Gestione MD5 per il confronto delle password e questo lo faccio con MessageDigest di Java Security */
+			String oldPass = service.getPassword(form.getOid());
+			if (form.getNew_password().equals(form.getConfirm_password()) && (form.getOld_password().equals(oldPass))){
+				service.createUser(user);
+			}
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
 		return mapping.findForward("success");
 	}
 	
-	
-
 }

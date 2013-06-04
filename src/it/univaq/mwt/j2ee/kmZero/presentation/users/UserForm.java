@@ -10,13 +10,15 @@ public class UserForm extends ValidatorForm{
 	private String name;
 	private String surname;
 	private String email;
-	private String password;
+	private String old_password;
+	private String new_password;
+	private String confirm_password;
 	private Date created;
 	private Date date_of_birth;
 	private Date last_access;
 	private String address;
 	
-
+	
 	public long getOid() {
 		return oid;
 	}
@@ -41,11 +43,23 @@ public class UserForm extends ValidatorForm{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassword() {
-		return password;
+	public String getOld_password() {
+		return old_password;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setOld_password(String old_password) {
+		this.old_password = old_password;
+	}
+	public String getNew_password() {
+		return new_password;
+	}
+	public void setNew_password(String new_password) {
+		this.new_password = new_password;
+	}
+	public String getConfirm_password() {
+		return confirm_password;
+	}
+	public void setConfirm_password(String confirm_password) {
+		this.confirm_password = confirm_password;
 	}
 	public Date getCreated() {
 		return created;
@@ -65,11 +79,9 @@ public class UserForm extends ValidatorForm{
 	public void setLast_access(Date last_access) {
 		this.last_access = last_access;
 	}
-	
 	public String getAddress() {
 		return address;
 	}
-
 	public void setAddress(String address) {
 		this.address = address;
 	}

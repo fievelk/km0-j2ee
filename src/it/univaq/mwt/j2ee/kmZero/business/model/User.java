@@ -1,6 +1,6 @@
 package it.univaq.mwt.j2ee.kmZero.business.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class User {
 
@@ -19,7 +19,8 @@ public class User {
 		
 	}
 
-	public User(long oid) {
+	// Costruttore dello User con solo l'id
+	public User(long oid){
 		this.oid = oid;
 	}
 	
@@ -51,6 +52,19 @@ public class User {
 		this.address = address;
 	}
 	
+	/* Costruttore per visualizzare la lista degli utenti senza il campo password */
+	public User(long oid, String name, String surname, String email,
+			Date created, Date date_of_birth, Date last_access, String address) {
+		super();
+		this.oid = oid;
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
+		this.created = created;
+		this.date_of_birth = date_of_birth;
+		this.last_access = last_access;
+		this.address = address;
+	}
 
 	public long getOid() {
 		return oid;
