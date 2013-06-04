@@ -44,7 +44,7 @@ public class Seller extends User {
 	}
 	
 	// Costruttore con Id User e nome della Company utilizzato per la visualizzazione dei prodotti di un venditore
-	 public Seller(Long oid, String company) {
+	 public Seller(long oid, String company) {
 		super(oid);
 		this.company = company;
 	 }
