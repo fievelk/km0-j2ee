@@ -1,6 +1,6 @@
 package it.univaq.mwt.j2ee.kmZero.business.model;
 
-import java.sql.Date;
+import java.util.Calendar;
 
 public class Seller extends User {
 
@@ -21,8 +21,8 @@ public class Seller extends User {
 	}
 
 	// Costruttore da utilizzare quando il venditore si registra da zero.
-	public Seller(long oid, String name, String surname, String email, String password, Date created, Date date_of_birth,
-			Date last_access, String address, String p_iva, String cod_fisc, String company, String url, String phone, int enable) {
+	public Seller(long oid, String name, String surname, String email, String password, Calendar created, Calendar date_of_birth,
+			Calendar last_access, String address, String p_iva, String cod_fisc, String company, String url, String phone, int enable) {
 		super(oid, name, surname, email, password, created, date_of_birth, last_access,
 				address);
 		this.p_iva = p_iva;
@@ -42,6 +42,12 @@ public class Seller extends User {
 		this.phone = phone;
 		this.enable = 0;
 	}
+	
+	// Costruttore con Id User e nome della Company utilizzato per la visualizzazione dei prodotti di un venditore
+	 public Seller(long oid, String company) {
+		super(oid);
+		this.company = company;
+	 }
 
 	public String getP_iva() {
 		return p_iva;
