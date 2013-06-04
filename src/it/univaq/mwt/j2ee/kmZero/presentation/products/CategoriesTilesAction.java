@@ -30,11 +30,9 @@ public class CategoriesTilesAction implements Controller {
 	}
 
 	@Override
-	public void perform(ComponentContext arg0, HttpServletRequest arg1,
-			HttpServletResponse arg2, ServletContext arg3)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+	public void perform(ComponentContext context, HttpServletRequest request, 
+			HttpServletResponse response, ServletContext servletContext) throws ServletException, IOException {
+
 	}
 
 }

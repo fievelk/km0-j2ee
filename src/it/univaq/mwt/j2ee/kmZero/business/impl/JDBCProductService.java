@@ -206,12 +206,50 @@ public class JDBCProductService implements ProductService{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-		List<Category> categories = new ArrayList<Category>();
+		List<Category> result = new ArrayList<Category>();
 		
-		// Andare avanti
+		try {
+			connection = dataSource.getConnection();
+			
+			String sql = "SELECT * FROM Categories ORDER BY name";
+			preparedStatement = connection.prepareStatement(sql);
+			rs = preparedStatement.executeQuery();
+			
+			while (rs.next()) {
+				Long id = rs.getLong("id");
+				String name = rs.getString("name");
+				Long parent_id = rs.getLong("parent_id");
+				
+				Category category = new Category(id, name, parent_id);
+				result.add(category);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
 		
-		
-		return null;
+		return result;
 	}
 
 	private java.sql.Date convertDateToSqlFormat(Date date) {
