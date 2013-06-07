@@ -34,7 +34,7 @@ public class UserAction extends MappingDispatchAction{
 	}*/
 	
 	public ActionForward insert (ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
-		UserForm form = (UserForm) actionForm;
+		UserCreateForm form = (UserCreateForm) actionForm;
 		User user = new User();
 		/* Il throws Exception ci serve per prendere l'eccezione generata dalla BeanUtils */
 		BeanUtils.copyProperties(user, form);
@@ -42,49 +42,62 @@ public class UserAction extends MappingDispatchAction{
 		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
 		UserService service = factory.getUserService();
 		
-		try {
-			if (form.getNew_password().equals(form.getConfirm_password())){
-				service.createUser(user);
-			}
-		} catch (BusinessException e) {
-			e.printStackTrace();
+		/* Vedere se il confronto delle password può essere fatto nella validazione invece che nella servlet */
+		if (form.getPassword().equals(form.getConfirm_password())){
+			service.createUser(user);
 		}
 		
 		return mapping.findForward("success");
 	}
 	
-	public ActionForward updateStart(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward updateStartUser(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		UserForm form = (UserForm) actionForm;
 		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance(); 
 		UserService service = factory.getUserService();
-
-		try {
-			User user = service.findUserByPK(form.getOid());
-			BeanUtils.copyProperties(form, user);
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		User user = service.findUserByPK(form.getOid());
+		BeanUtils.copyProperties(form, user);
+		
 		return mapping.findForward("form");
 	}
 	
-	public ActionForward update(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception {
+	public ActionForward updateUser(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception {
 		UserForm form = (UserForm) actionForm;
 		User user = new User();
 		BeanUtils.copyProperties(user, form);
 		
 		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance(); 
 		UserService service = factory.getUserService();
+		
+		service.updateUser(user);
 
-		try {
-			/* Gestione MD5 per il confronto delle password e questo lo faccio con MessageDigest di Java Security */
+		/* La modifica della password la faccio tramite metodi e form separati!
+		 * 
+		 * try {
+			 Gestione MD5 per il confronto delle password e questo lo faccio con MessageDigest di Java Security 
 			String oldPass = service.getPassword(form.getOid());
 			if (form.getNew_password().equals(form.getConfirm_password()) && (form.getOld_password().equals(oldPass))){
 				service.createUser(user);
 			}
 		} catch (BusinessException e) {
 			e.printStackTrace();
-		}
+		}*/
+		return mapping.findForward("success");
+	}
+	
+	public ActionForward deleteUser(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
+		UserForm form = (UserForm) actionForm;
+		User user = new User();
+		BeanUtils.copyProperties(user, form);
+		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
+		UserService service = factory.getUserService();
+		service.deleteUser(user);
+		return mapping.findForward("success");
+	}
+	
+	public ActionForward findAllPaginatedUsers(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
+		// TODO: finire di implementare il metodo e gli altri metodi.
+		
 		return mapping.findForward("success");
 	}
 	
