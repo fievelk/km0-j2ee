@@ -37,4 +37,11 @@ public class DateConversionUtility {
 		return s;
 	}
 	
+	// Converte il Timestamp in un oggetto Calendar
+	public static Calendar timestampToCalendar (java.sql.Timestamp ts){
+		Calendar c = Calendar.getInstance();
+		c.setTimeInMillis(ts.getTime());
+		return c;
+	}
+	
 }

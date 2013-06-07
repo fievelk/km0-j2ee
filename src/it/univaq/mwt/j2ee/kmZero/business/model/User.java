@@ -1,6 +1,6 @@
 package it.univaq.mwt.j2ee.kmZero.business.model;
 
-import java.sql.Date;
+import java.util.Calendar;
 
 public class User {
 
@@ -9,9 +9,9 @@ public class User {
 	private String surname;
 	private String email;
 	private String password;
-	private Date created;
-	private Date date_of_birth;
-	private Date last_access;
+	private Calendar created;
+	private Calendar date_of_birth;
+	private Calendar last_access;
 	private String address;
 	
 
@@ -25,7 +25,7 @@ public class User {
 	}
 	
 	public User(String name, String surname, String email, String password,
-			Date created, Date date_of_birth, Date last_access, String address) {
+			Calendar created, Calendar date_of_birth, Calendar last_access, String address) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -38,8 +38,8 @@ public class User {
 	}
 
 	public User(long oid, String name, String surname, String email,
-			String password, Date created, Date date_of_birth,
-			Date last_access, String address) {
+			String password, Calendar created, Calendar date_of_birth,
+			Calendar last_access, String address) {
 		super();
 		this.oid = oid;
 		this.name = name;
@@ -52,9 +52,9 @@ public class User {
 		this.address = address;
 	}
 	
-	/* Costruttore per visualizzare la lista degli utenti senza il campo password */
+	/* Costruttore per visualizzare la lista degli utenti senza il campo password ed anche per aggiornare il profilo utente */
 	public User(long oid, String name, String surname, String email,
-			Date created, Date date_of_birth, Date last_access, String address) {
+			Calendar created, Calendar date_of_birth, Calendar last_access, String address) {
 		super();
 		this.oid = oid;
 		this.name = name;
@@ -64,6 +64,12 @@ public class User {
 		this.date_of_birth = date_of_birth;
 		this.last_access = last_access;
 		this.address = address;
+	}
+	
+	// Costruttore per il cambio password
+	public User(long oid, String password){
+		this.oid = oid;
+		this.password = password;
 	}
 
 	public long getOid() {
@@ -96,22 +102,22 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Date getCreated() {
+	public Calendar getCreated() {
 		return created;
 	}
-	public void setCreated(Date created) {
+	public void setCreated(Calendar created) {
 		this.created = created;
 	}
-	public Date getDate_of_birth() {
+	public Calendar getDate_of_birth() {
 		return date_of_birth;
 	}
-	public void setDate_of_birth(Date date_of_birth) {
+	public void setDate_of_birth(Calendar date_of_birth) {
 		this.date_of_birth = date_of_birth;
 	}
-	public Date getLast_access() {
+	public Calendar getLast_access() {
 		return last_access;
 	}
-	public void setLast_access(Date last_access) {
+	public void setLast_access(Calendar last_access) {
 		this.last_access = last_access;
 	}
 	
