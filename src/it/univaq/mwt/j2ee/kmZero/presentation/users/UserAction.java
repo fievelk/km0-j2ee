@@ -97,6 +97,7 @@ public class UserAction extends MappingDispatchAction{
 	
 	public ActionForward findAllPaginatedUsers(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
 		// TODO: finire di implementare il metodo e gli altri metodi.
+		
 		return mapping.findForward("success");
 	}
 	
