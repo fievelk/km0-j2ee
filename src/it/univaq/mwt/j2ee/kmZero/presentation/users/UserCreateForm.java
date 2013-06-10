@@ -4,12 +4,14 @@ import java.util.Date;
 
 import org.apache.struts.validator.ValidatorForm;
 
-public class UserForm extends ValidatorForm{
+public class UserCreateForm extends ValidatorForm{
 	
 	private long oid;
 	private String name;
 	private String surname;
 	private String email;
+	private String password;
+	private String confirm_password;
 	private Date created;
 	private Date date_of_birth;
 	private Date last_access;
@@ -39,6 +41,18 @@ public class UserForm extends ValidatorForm{
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getConfirm_password() {
+		return confirm_password;
+	}
+	public void setConfirm_password(String confirm_password) {
+		this.confirm_password = confirm_password;
 	}
 	public Date getCreated() {
 		return created;

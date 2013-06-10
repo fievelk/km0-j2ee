@@ -10,13 +10,15 @@ import it.univaq.mwt.j2ee.kmZero.business.model.User;
 
 public interface UserService {
 	
+	/* Per modificare la Password, facciamo un form dedicato? Al momento non è così. */
+	
 	void createUser(User user) throws BusinessException;
 	
 	void updateUser(User user) throws BusinessException;
 	
 	void deleteUser(User user) throws BusinessException;
 	
-	/* Metodo vecchio per la visualizzazione della lista*/
+	/* Metodo vecchio per la visualizzazione della lista. Questo metodo potrebbe non servirci*/
 	List<User> viewAllUsers() throws BusinessException;
 	
 	/* Metodo nuovo per la visualizzazione della lista tramite dataTables */
@@ -30,12 +32,23 @@ public interface UserService {
 	
 	void createSeller(Seller seller) throws BusinessException;
 	
+	/* Metodo che permette all'amministratore di poter modificare i dati sensibili del venditore */
+	void updateSellerByAdmin(Seller seller) throws BusinessException;
+	
+	/* Il venditore non può modificare alcuni dei suoi dati manualmente e con questo metodo tutto questo viene garantito */
 	void updateSeller(Seller seller) throws BusinessException;
 	
 	void deleteSeller(Seller seller) throws BusinessException;
 	
+	Seller findSellerByPK (Long oid) throws BusinessException;
+	
+	// Questo metodo viene usato quando lo user vuol vedere la lista dei venditori
 	List<Seller> viewAllSellers() throws BusinessException;
 	
+	ResponseGrid viewAllSellersPaginated(RequestGrid requestGrid) throws BusinessException;
+	
 	List<Seller> getSellersFromPaidCarts() throws BusinessException;
+	
+	void updatePassword(long oid, String password) throws BusinessException;
 
 }

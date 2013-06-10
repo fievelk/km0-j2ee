@@ -43,7 +43,16 @@ public class Seller extends User {
 		this.enable = 0;
 	}
 	
-	// Costruttore con Id User e nome della Company utilizzato per la visualizzazione dei prodotti di un venditore
+	// Costruttore da utilizzare per visualizzare un venditore all'interno di una Datatables (Admin)
+	public Seller(long oid, String name, String surname, String p_iva, String company, String phone){
+		super(oid, name, surname, null, null, null, null, null);
+		this.p_iva = p_iva;
+		this.company = company;
+		this.phone = phone;
+	}
+	
+	// Costruttore con Id User e nome della Company utilizzato per la visualizzazione dei prodotti di un venditore e
+	// per far visualizzare ad un utente la lista dei venditori.
 	 public Seller(long oid, String company) {
 		super(oid);
 		this.company = company;
