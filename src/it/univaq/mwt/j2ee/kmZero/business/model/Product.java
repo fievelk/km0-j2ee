@@ -1,7 +1,7 @@
 package it.univaq.mwt.j2ee.kmZero.business.model;
 
+import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 
 public class Product {
 
@@ -9,8 +9,8 @@ public class Product {
 	private String name;
 	private String description;
 	private float price;
-	private Date date_in;
-	private Date date_out;
+	private Calendar date_in;
+	private Calendar date_out;
 	private Category category;
 	private Collection<Image> images;
 	private float rating;
@@ -21,7 +21,7 @@ public class Product {
 	}
 
 	public Product(long oid, String name, String description, float price,
-			Date date_in, Date date_out, Category category,
+			Calendar date_in, Calendar date_out, Category category,
 			Collection<Image> images, Seller seller) {
 		super();
 		this.oid = oid;
@@ -75,16 +75,16 @@ public class Product {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	public Date getDate_in() {
+	public Calendar getDate_in() {
 		return date_in;
 	}
-	public void setDate_in(Date date_in) {
+	public void setDate_in(Calendar date_in) {
 		this.date_in = date_in;
 	}
-	public Date getDate_out() {
+	public Calendar getDate_out() {
 		return date_out;
 	}
-	public void setDate_out(Date date_out) {
+	public void setDate_out(Calendar date_out) {
 		this.date_out = date_out;
 	}
 	public Category getCategory() {
