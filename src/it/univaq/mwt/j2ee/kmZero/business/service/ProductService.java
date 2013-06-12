@@ -16,7 +16,11 @@ public interface ProductService {
 
 	List<Product> viewProducts() throws BusinessException;
 	
+	List<Product> viewActiveProducts() throws BusinessException;
+	
 	List<Product> viewProductsBySellerId(long id) throws BusinessException; /* Da implementare */
+	
+	Product findProductById(long id) throws BusinessException;
 	
 	void createCategory(Category category) throws BusinessException;
 	

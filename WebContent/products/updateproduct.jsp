@@ -20,31 +20,12 @@
     </div>
 </div>
 
-
 <div>
     <label for="price">Prezzo</label>
     <div>
     	<html:text styleId="price" property="price"/>
     </div>
 </div>
-
-<%--
-
-<div>
-    <label for="date_in">Data IN</label>
-    <div>
-    	<html:text styleId="date_in" property="date_in"/>
-    </div>
-</div>
-
-<div>
-    <labelfor="date_out">Data OUT</label>
-    <div>
-    	<html:text styleId="date_out" property="date_out"/>
-    </div>
-</div>
---%>
-
 
 <div>
     <label for="CategoryId">Categoria</label>
@@ -54,18 +35,6 @@
 		</html:select>
     </div>
 </div>
-
-
-<%-- <div>
-    <label for="categoryId">Categoria</label>
-    <div>
-		<select id="categoryId" name="categoryId">
-			<c:forEach items="${requestScope.categories}" var="category">
-				<option value="${category.oid}">${category.name}</option>
-			</c:forEach>
-		</select>
-	</div>
-</div> --%>
 
 <!-- inizio DATEPICKER from-to -->
 
@@ -94,9 +63,9 @@ $(function() {
 
 <div>
     <label for="from">Data di inizio</label>
-	    <input type="text" id="from" name="date_in"/>
+	    <input type="text" id="from" name="date_in" value="${requestScope.date_in}"/>
     <label for="to">Data di fine</label>
-	    <input type="text" id="to" name="date_out"/>
+	    <input type="text" id="to" name="date_out" value="${requestScope.date_out}"/>
 </div>
 
 <!-- fine DATEPICKER -->

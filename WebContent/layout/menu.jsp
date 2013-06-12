@@ -11,7 +11,8 @@
        <div class="nav-collapse collapse">
     
 		<ul class="nav">
-					<li><a href="${pageContext.request.contextPath}/products/views.do">Lista Prodotti</a></li>
+					<li><a href="${pageContext.request.contextPath}/products/views.do">Lista Prodotti Vista User</a></li>
+					<li><a href="${pageContext.request.contextPath}/products/viewsforsellers.do">Lista Prodotti Vista Seller</a></li>
 					<li><a href="${pageContext.request.contextPath}/products/insert_start.do">Aggiungi Prodotto</a></li>
 		</ul>
        </div>

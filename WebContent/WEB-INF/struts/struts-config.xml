@@ -19,7 +19,13 @@
 				parameter="views">
 			<forward name="success" path="products.views"/>
 		</action>
-		
+
+		<action path="/products/viewsforsellers" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"
+				parameter="viewsForSellers">
+			<forward name="success" path="products.viewsforsellers"/>
+		</action>		
+
         <action path="/products/insert_start" 
       	    	type="org.apache.struts.actions.ForwardAction"
       	    	parameter="products.insertproduct"/>
@@ -31,6 +37,25 @@
 				parameter="insert">
 			<forward name="success" path="/products/views.do" redirect="true"/>
 		</action>
+
+		<action name="product_form" scope="request"
+				validate="false"
+				path="/products/update_start" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"
+				parameter="updateStart">
+			<forward name="form" path="products.updateproduct"/>
+		</action>		
+		
+		<action name="product_form" scope="request"
+				validate="false"
+				path="/products/update" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"
+				parameter="views"> <!-- da cambiare -->
+			<forward name="form" path="products.updateproduct"/>
+		</action>				
+		
+		
+		
 		
 <!-- 		<action path="/products/insert_start" 
 				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"

@@ -14,7 +14,7 @@ public class ProductForm extends ValidatorForm {
 	private String name;
 	private String description;
 	private float price;
-	//private Date date_in;
+	//private String date_in;
 	//private Date date_out;
 	private long categoryId; // Va inserito un long al posto del tipo Category?
 
@@ -54,13 +54,14 @@ public class ProductForm extends ValidatorForm {
 		this.categoryId = categoryId;
 	}
 
-/*	public Date getDate_in() {
+/*	public String getDate_in() {
 		return date_in;
 	}
-	public void setDate_in(Date date_in) {
+	public void setDate_in(String date_in) {
 		this.date_in = date_in;
-	}
-	public Date getDate_out() {
+	} */
+	
+/*	public Date getDate_out() {
 		return date_out;
 	}
 	public void setDate_out(Date date_out) {

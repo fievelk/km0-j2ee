@@ -17,6 +17,10 @@
         <put name="body" value="/products/productslist.jsp"/>
     </definition>
     
+    <definition name="products.viewsforsellers" extends="standard">
+        <put name="body" value="/products/productslistforsellers.jsp"/>
+    </definition>
+     
     <!-- tile per la form di inserimento del Product -->
     <definition name="products.insertproduct" extends="standard" 
     			controllerClass="it.univaq.mwt.j2ee.kmZero.presentation.products.CategoriesTilesAction">
@@ -24,6 +28,11 @@
     	<put name="body" value="/products/insertproduct.jsp"></put>
     </definition>
     
+    <definition name="products.updateproduct" extends="standard" 
+    			controllerClass="it.univaq.mwt.j2ee.kmZero.presentation.products.CategoriesTilesAction">
+    	<put name="action" value="/products/update.do"></put>
+    	<put name="body" value="/products/updateproduct.jsp"></put>
+    </definition>    
     
     <!-- Old Library tiles -->
     

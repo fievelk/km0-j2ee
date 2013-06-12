@@ -11,6 +11,7 @@ public class Product {
 	private float price;
 	private Calendar date_in;
 	private Calendar date_out;
+	private boolean active;
 	private Category category;
 	private Collection<Image> images;
 	private float rating;
@@ -34,6 +35,20 @@ public class Product {
 		this.images = images;
 		this.seller = seller;
 	}
+	
+	/* Costruttore per l'inserimento senza immagini */
+	public Product(long oid, String name, String description, float price,
+			Category category, Seller seller, Calendar date_in, Calendar date_out) {
+		super();
+		this.oid = oid;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.category = category;
+		this.seller = seller;
+		this.date_in = date_in;
+		this.date_out = date_out;
+	}	
 	
 	/* Costruttore per l'inserimento senza immagini e date */
 	public Product(long oid, String name, String description, float price,
@@ -111,6 +126,14 @@ public class Product {
 	
 	public Seller getSeller() {
 		return seller;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	
 }
