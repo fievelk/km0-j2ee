@@ -34,6 +34,17 @@
     	<put name="body" value="/products/updateproduct.jsp"></put>
     </definition>    
     
+    <!-- Tiles per la form della creazione dell'utente -->
+    <definition name="users.views" extends="standard">
+        <put name="body" value="/users/userviews.jsp"/>
+    </definition>
+    
+    
+    <definition name="users.createuser" extends="standard">
+    	<put name="action" value="/users/insert.do"></put>
+    	<put name="body" value="/users/usercreateform.jsp"></put>
+    </definition>
+    
     <!-- Old Library tiles -->
     
     <definition name="titles.inserttitle" extends="standard" controllerClass="it.univaq.mwt.j2ee.library.presentation.titles.TitleKindTilesAction">

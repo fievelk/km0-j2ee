@@ -2,14 +2,21 @@ package it.univaq.mwt.j2ee.kmZero.presentation.users;
 
 import it.univaq.mwt.j2ee.kmZero.business.BusinessException;
 import it.univaq.mwt.j2ee.kmZero.business.KmZeroBusinessFactory;
+import it.univaq.mwt.j2ee.kmZero.business.RequestGrid;
+import it.univaq.mwt.j2ee.kmZero.business.ResponseGrid;
 import it.univaq.mwt.j2ee.kmZero.business.impl.JDBCUserService;
 import it.univaq.mwt.j2ee.kmZero.business.model.User;
 import it.univaq.mwt.j2ee.kmZero.business.service.UserService;
+import it.univaq.mwt.j2ee.kmZero.common.DateConversionUtility;
+import it.univaq.mwt.j2ee.kmZero.common.JsonUtility;
+import it.univaq.mwt.j2ee.kmZero.common.ResponseUtility;
+import it.univaq.mwt.j2ee.kmZero.presentation.common.RequestGridForm;
 
 import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import java.security.MessageDigest;
@@ -25,8 +32,21 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 public class UserAction extends MappingDispatchAction{
 	
-	public ActionForward views(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward views(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return mapping.findForward("success");
+	}
+	
+	public ActionForward viewAllUsersPaginated(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
+		RequestGridForm form = (RequestGridForm) actionForm;
+		RequestGrid requestGrid = new RequestGrid();
+		BeanUtils.copyProperties(requestGrid, form);
+		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
+		UserService service = factory.getUserService();
+		ResponseGrid responseGrid = service.viewAllUsersPaginated(requestGrid);
+		String json = JsonUtility.writeValueAsString(responseGrid);
+		ResponseUtility.generateJsonResponse(response, json);
+		
+		return null;
 	}
 	
 	/*public ActionForward insertStart(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response){
@@ -39,13 +59,14 @@ public class UserAction extends MappingDispatchAction{
 		/* Il throws Exception ci serve per prendere l'eccezione generata dalla BeanUtils */
 		BeanUtils.copyProperties(user, form);
 		
+		String dateBorn = req.getParameter("date_of_birth");
+		user.setDate_of_birth(DateConversionUtility.stringToCalendar(dateBorn));
+		user.setCreated(Calendar.getInstance());
+		
 		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
 		UserService service = factory.getUserService();
 		
-		/* Vedere se il confronto delle password può essere fatto nella validazione invece che nella servlet */
-		if (form.getPassword().equals(form.getConfirm_password())){
-			service.createUser(user);
-		}
+		service.createUser(user);
 		
 		return mapping.findForward("success");
 	}
@@ -95,9 +116,8 @@ public class UserAction extends MappingDispatchAction{
 		return mapping.findForward("success");
 	}
 	
-	public ActionForward findAllPaginatedUsers(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
-		// TODO: finire di implementare il metodo e gli altri metodi.
-		
+	public ActionForward createSeller(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
+		// TODO: prima di fare i metodi per il seller è opportuno creare il suo form.
 		return mapping.findForward("success");
 	}
 	

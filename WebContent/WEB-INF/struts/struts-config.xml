@@ -6,6 +6,9 @@
 
 <form-beans>
 	<form-bean name="product_form" type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductForm"/>
+	<form-bean name="requestgrid_form" type="it.univaq.mwt.j2ee.kmZero.presentation.common.RequestGridForm"/>
+	<form-bean name="user_create_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserCreateForm"></form-bean>
+	<form-bean name="user_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserForm"></form-bean>
 </form-beans>
 
 <action-mappings>
@@ -63,10 +66,37 @@
 			<forward name="success" path="products.insertproduct"/>
 		</action>
  -->		
+ 
+ <!-- ========== Begin User Action =============================== -->
+ 		<action path="/users/views" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="views">
+			<forward name="success" path="users.views"/>
+		</action>
+		
+		<action name="requestgrid_form" validate="false" scope="request"
+				path="/users/viewAllUsersPaginated" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="viewAllUsersPaginated">
+		</action>
+ 
+ 		<action path="/users/insert_start" parameter="users.createuser"
+        	    type="org.apache.struts.actions.ForwardAction"/>
+ 		
+ 		<action name="user_create_form" scope="request"
+ 				validate="true" input="users.createuser" 
+ 				path="/users/insert"
+ 				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="insert">
+			<forward name="success" path="/" redirect="true"/>
+ 		</action>
+ <!-- ========== End User Action =============================== -->
+ 
+ 
 </action-mappings>
 
 	<!-- ========== Message Resources Definitions ============================ -->
-    <message-resources null="false" parameter="library"/>
+    <message-resources null="false" parameter="kmzero"/>
     
 	<!-- ========== Plug Ins Configuration ================================= -->
     <plug-in className="org.apache.struts.validator.ValidatorPlugIn">

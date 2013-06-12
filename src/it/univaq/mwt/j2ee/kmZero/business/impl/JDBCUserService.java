@@ -178,7 +178,7 @@ public class JDBCUserService implements UserService{
 	// Metodo per la visualizzazione degli utenti tramite datatables
 	@Override
 	public ResponseGrid viewAllUsersPaginated(RequestGrid requestGrid) throws BusinessException {
-		if ("id".equals(requestGrid.getSortCol())) {
+		if ("oid".equals(requestGrid.getSortCol())) {
 			requestGrid.setSortCol("id");
 		} else {
 			if ("name".equals(requestGrid.getSortCol())) {
@@ -186,10 +186,11 @@ public class JDBCUserService implements UserService{
 			} else {
 				requestGrid.setSortCol(requestGrid.getSortCol());
 			}
-		}
+			
+		} 
 		String orderBy = (!"".equals(requestGrid.getSortCol()) && !"".equals(requestGrid.getSortDir())) ? "order by " + requestGrid.getSortCol() + " " + requestGrid.getSortDir() : "";
-		String baseSearch = "select id, name, surname, email, created, date_of_birth, last_access, address " +
-			 	"from users " + 
+		String baseSearch = "select id, name, surname, email, created, date_of_birth, last_access, address  " +
+			 	"from users " +
 			 	((!"".equals(requestGrid.getsSearch())) ? " and name like '" + ConversionUtility.addPercentSuffix(requestGrid.getsSearch()) + "'":"");
 		
 		String sql = "select * from (" +
@@ -202,52 +203,49 @@ public class JDBCUserService implements UserService{
 					 " and rownum<=" + requestGrid.getiDisplayLength();
 		String countSql = "select count(*) from (" + baseSearch + ")";
 		long records = 0;
-		Connection connection = null;
-		Statement statement = null;
+		Connection con = null;
+		Statement st = null;
 		ResultSet rs = null;
 		List<User> users = new ArrayList<User>();
-		
 		try {
-			connection = dataSource.getConnection();
-			statement = connection.createStatement();
-			//CONTA GLI ELEMENTI
-			rs = statement.executeQuery(countSql);
+			con = dataSource.getConnection();
+			st = con.createStatement();
+			//COUNT ELEMENTS
+			rs = st.executeQuery(countSql);
 			if (rs.next()) {
 				records = rs.getLong(1);
 			}
-			//ESEGUI LA QUERY "LIMITED"
-			rs = statement.executeQuery(sql);
-			while(rs.next()){
+			//EXECUTE SQL LIMITED
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
 				Long id = rs.getLong("id");
 				String name = rs.getString("name");
 				String surname = rs.getString("surname");
 				String email = rs.getString("email");
 				Calendar created = DateConversionUtility.timestampToCalendar(rs.getTimestamp("created"));
 				Calendar date_of_birth = DateConversionUtility.timestampToCalendar(rs.getTimestamp("date_of_birth"));
-				Calendar last_access = DateConversionUtility.timestampToCalendar(rs.getTimestamp("last_access"));
+				//Calendar last_access = DateConversionUtility.timestampToCalendar(rs.getTimestamp("last_access"));
 				String address = rs.getString("address");
-				User user = new User (id, name, surname, email, created, date_of_birth, last_access, address);
-				users.add(user);
+				users.add(new User (id, name, surname, email, created, date_of_birth, null, address));
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new BusinessException();
+			throw new BusinessException(e);
 		} finally {
-			if (rs != null) {
+			if (st != null) {
 				try {
-					rs.close();
-				} catch (SQLException e) {}
+					st.close();
+				} catch (SQLException e) {
+				}
 			}
-			if (statement != null) {
+			if (con != null) {
 				try {
-					statement.close();
-				} catch (SQLException e) {}
+					con.close();
+				} catch (SQLException e) {
+				}
 			}
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {}
-			}
+
 		}
 		return new ResponseGrid(requestGrid.getsEcho(), records, records, users);
 	}
