@@ -8,7 +8,7 @@ public class DateConversionUtility {
 	
 	// Converte la Data dalla stringa presa dal datepicker all'oggetto Calendar
 	public static Calendar stringToCalendar (String s){
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar c = Calendar.getInstance();
 		try {
 			c.setTime(sdf.parse(s));
