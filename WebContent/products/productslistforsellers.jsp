@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="it.univaq.mwt.j2ee.kmZero.business.model.Product"%>
+<%@page import="java.util.Calendar"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -37,8 +40,8 @@
 		<td>${product.category.name}</td>
 		<td>${product.seller.company}</td>
 		<td><a href="${pageContext.request.contextPath}/products/update_start.do?oid=${product.oid}">UPDATAMI</a></td>
-		<td>${product.date_in}></td>
-		<td>${product.date_out}</td>
+		<td><fmt:formatDate pattern="dd-MM-yyyy"  value="${product.date_in.time}" /></td>
+		<td><fmt:formatDate pattern="dd-MM-yyyy"  value="${product.date_out.time}" /></td>
 		
 	</tr>
 	</c:forEach>
