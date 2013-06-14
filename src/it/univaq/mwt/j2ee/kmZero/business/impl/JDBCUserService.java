@@ -12,6 +12,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import it.univaq.mwt.j2ee.kmZero.business.BusinessException;
 import it.univaq.mwt.j2ee.kmZero.business.RequestGrid;
 import it.univaq.mwt.j2ee.kmZero.business.ResponseGrid;
@@ -35,17 +37,16 @@ public class JDBCUserService implements UserService{
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = dataSource.getConnection();
-			String sql = "insert into users (id, name, surname, email, password, created, date_of_birth, last_access, address)" +
-					"values (USERS_SEQ.NEXTVAL, ?,?,?,?,?,?,?,?)";
+			String sql = "insert into users (id, name, surname, email, password, created, date_of_birth, address)" +
+					"values (USERS_SEQ.NEXTVAL, ?,?,?,?,?,?,?)";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getSurname());
 			preparedStatement.setString(3, user.getEmail());
-			preparedStatement.setString(4, user.getPassword());
+			preparedStatement.setString(4, DigestUtils.md5Hex(user.getPassword()));
 			preparedStatement.setTimestamp(5, new Timestamp(user.getCreated().getTimeInMillis())); // Conversione da util.Data a sql.Data
 			preparedStatement.setTimestamp(6, new Timestamp(user.getDate_of_birth().getTimeInMillis()));
-			preparedStatement.setTimestamp(7, new Timestamp(user.getLast_access().getTimeInMillis()));
-			preparedStatement.setString(8, user.getAddress());
+			preparedStatement.setString(7, user.getAddress());
 			preparedStatement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -361,7 +362,7 @@ public class JDBCUserService implements UserService{
 			preparedStatement.setString(1, seller.getName());
 			preparedStatement.setString(2, seller.getSurname());
 			preparedStatement.setString(3, seller.getEmail());
-			preparedStatement.setString(4, seller.getPassword());
+			preparedStatement.setString(4, DigestUtils.md5Hex(seller.getPassword()));
 			preparedStatement.setTimestamp(5, new Timestamp(seller.getCreated().getTimeInMillis()));
 			preparedStatement.setTimestamp(6, new Timestamp(seller.getDate_of_birth().getTimeInMillis()));
 			preparedStatement.setTimestamp(7, new Timestamp(seller.getLast_access().getTimeInMillis()));

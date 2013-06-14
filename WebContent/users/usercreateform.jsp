@@ -8,7 +8,7 @@
 <script>
 $(function() {
 	$( "#datepicker" ).datepicker({
-		defaultDate: "1/1/1920",
+		defaultDate: "1/1/1960",
 		changeMonth: true,
 		changeYear: true,
 		dateFormat: 'dd/mm/yy',
