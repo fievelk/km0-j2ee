@@ -1,7 +1,7 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		$('#user').dataTable({
+		$('#seller').dataTable({
 			"bProcessing": true,
 			"bJQueryUI": true,
 			"bServerSide": true,
@@ -10,11 +10,9 @@
 						{"mData":"oid"},
 		                {"mData":"name"},
 		                {"mData":"surname"},
-		                {"mData":"date_of_birth"},
-		                {"mData":"address"},
-		                {"mData":"email"},
-		                {"mData":"created"},
-		                {"mData":"last_access", "sDefaultContent": ""},		                
+		                {"mData":"p_iva"},
+		                {"mData":"company"},
+		                {"mData":"phone", "sDefaultContent": ""},		                
 		                { "sName": "name",
 		                    "bSearchable": false,
 		                    "bSortable": false,
@@ -26,7 +24,7 @@
 		                     }
 		                  }
             ],
-            "sAjaxSource": "${pageContext.request.contextPath}/users/viewAllUsersPaginated.do",
+            "sAjaxSource": "${pageContext.request.contextPath}/sellers/viewAllSellersPaginated.do",
             "oLanguage": {"sUrl": "${pageContext.request.contextPath}/resources/datatables/i18n/italian.properties"},        
             "fnServerParams": addsortparams
 		});
@@ -40,17 +38,15 @@
 </div>
 <br/>
 <div>
-	<table id="user">
+	<table id="seller">
 	    <thead>
 	        <tr>
 	        	<th>ID</th>
 	            <th><bean:message key="user.name"/></th>
 	            <th><bean:message key="user.surname"/></th>
-	            <th><bean:message key="user.date_of_birth"/></th>
-	            <th><bean:message key="user.address"/></th>
-	            <th><bean:message key="user.email"/></th>
-	            <th><bean:message key="user.created"/></th>
-	            <th><bean:message key="user.last_access"/></th>
+	            <th><bean:message key="seller.p_iva"/></th>
+	            <th><bean:message key="seller.company"/></th>
+	            <th><bean:message key="seller.phone"/></th>
 	            <th><bean:message key="common.actions"/></th>
 	        </tr>
 	    </thead>

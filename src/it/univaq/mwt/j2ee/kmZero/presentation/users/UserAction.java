@@ -5,6 +5,7 @@ import it.univaq.mwt.j2ee.kmZero.business.KmZeroBusinessFactory;
 import it.univaq.mwt.j2ee.kmZero.business.RequestGrid;
 import it.univaq.mwt.j2ee.kmZero.business.ResponseGrid;
 import it.univaq.mwt.j2ee.kmZero.business.impl.JDBCUserService;
+import it.univaq.mwt.j2ee.kmZero.business.model.Seller;
 import it.univaq.mwt.j2ee.kmZero.business.model.User;
 import it.univaq.mwt.j2ee.kmZero.business.service.UserService;
 import it.univaq.mwt.j2ee.kmZero.common.DateConversionUtility;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -71,21 +73,31 @@ public class UserAction extends MappingDispatchAction{
 		return mapping.findForward("success");
 	}
 	
-	public ActionForward updateStartUser(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward updateStartUser(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
+		
 		UserForm form = (UserForm) actionForm;
 		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance(); 
 		UserService service = factory.getUserService();
 		
 		User user = service.findUserByPK(form.getOid());
 		BeanUtils.copyProperties(form, user);
+		// In questo modo faccio la conversione della data e la passo al form
+		PropertyUtils.setProperty(form, "date_of_birth", DateConversionUtility.calendarDateToString(user.getDate_of_birth()));
 		
 		return mapping.findForward("form");
 	}
 	
 	public ActionForward updateUser(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception {
 		UserForm form = (UserForm) actionForm;
-		User user = new User();
-		BeanUtils.copyProperties(user, form);
+		//User user = new User();
+		//PropertyUtils.setProperty(user, "date_of_birth", DateConversionUtility.stringToCalendar(form.getDate_of_birth()));
+		/*BeanUtils.copyProperty(user, "name", form.getName());
+		BeanUtils.copyProperty(user, "surname", form.getSurname());
+		BeanUtils.copyProperty(user, "email", form.getEmail());
+		BeanUtils.copyProperty(user, "date_of_birth", DateConversionUtility.stringToCalendar(form.getDate_of_birth()));
+		BeanUtils.copyProperty(user, "address", form.getAddress());*/
+		//BeanUtils.copyProperties(user, form);
+		User user = new User (form.getOid(), form.getName(), form.getSurname(), form.getEmail(), DateConversionUtility.stringToCalendar(form.getDate_of_birth()), form.getAddress());
 		
 		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance(); 
 		UserService service = factory.getUserService();
@@ -108,8 +120,9 @@ public class UserAction extends MappingDispatchAction{
 	
 	public ActionForward deleteUser(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
 		UserForm form = (UserForm) actionForm;
-		User user = new User();
-		BeanUtils.copyProperties(user, form);
+		//User user = new User();
+		//BeanUtils.copyProperties(user, form);
+		User user = new User (form.getOid(), form.getName(), form.getSurname(), form.getEmail(), DateConversionUtility.stringToCalendar(form.getDate_of_birth()), form.getAddress());
 		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
 		UserService service = factory.getUserService();
 		service.deleteUser(user);
@@ -117,8 +130,32 @@ public class UserAction extends MappingDispatchAction{
 	}
 	
 	public ActionForward createSeller(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
-		// TODO: prima di fare i metodi per il seller è opportuno creare il suo form.
+		SellerCreateForm form = (SellerCreateForm) actionForm;
+		Seller seller = new Seller ();
+		BeanUtils.copyProperties(seller, form);
+		
+		String dateBorn = req.getParameter("date_of_birth");
+		seller.setDate_of_birth(DateConversionUtility.stringToCalendar(dateBorn));
+		seller.setCreated(Calendar.getInstance());
+		
+		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
+		UserService service = factory.getUserService();
+		service.createSeller(seller);
+		
 		return mapping.findForward("success");
+	}
+	
+	public ActionForward viewAllSellersPaginated(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
+		RequestGridForm form = (RequestGridForm) actionForm;
+		RequestGrid requestGrid = new RequestGrid();
+		BeanUtils.copyProperties(requestGrid, form);
+		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
+		UserService service = factory.getUserService();
+		ResponseGrid responseGrid = service.viewAllSellersPaginated(requestGrid);
+		String json = JsonUtility.writeValueAsString(responseGrid);
+		ResponseUtility.generateJsonResponse(response, json);
+		
+		return null;
 	}
 	
 }

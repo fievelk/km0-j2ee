@@ -73,16 +73,14 @@ public class JDBCUserService implements UserService{
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = dataSource.getConnection();
-			String sql = "update users set name=?, surname=?, email=?, created=?, date_of_birth=?, last_access=?, address=? where id=?";
+			String sql = "update users set name=?, surname=?, email=?, date_of_birth=?, address=? where id=?";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getSurname());
 			preparedStatement.setString(3, user.getEmail());
-			preparedStatement.setTimestamp(4, new Timestamp(user.getCreated().getTimeInMillis()));
-			preparedStatement.setTimestamp(5, new Timestamp(user.getDate_of_birth().getTimeInMillis()));
-			preparedStatement.setTimestamp(6, new Timestamp(user.getLast_access().getTimeInMillis()));
-			preparedStatement.setString(7, user.getAddress());
-			preparedStatement.setLong(8, user.getOid());
+			preparedStatement.setTimestamp(4, new Timestamp(user.getDate_of_birth().getTimeInMillis()));
+			preparedStatement.setString(5, user.getAddress());
+			preparedStatement.setLong(6, user.getOid());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -111,6 +109,7 @@ public class JDBCUserService implements UserService{
 			String sql = "delete from users where id=?";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setLong(1, user.getOid());
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new BusinessException();
@@ -260,7 +259,7 @@ public class JDBCUserService implements UserService{
 		User user = null;
 		try {
 			connection = dataSource.getConnection();
-			String sql = "select name, surname, email, created, date_of_birth, last_access, address from users where id=?";
+			String sql = "select name, surname, email, date_of_birth, address from users where id=?";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setLong(1, oid);
 			rs = preparedStatement.executeQuery();
@@ -268,11 +267,9 @@ public class JDBCUserService implements UserService{
 				String name = rs.getString("name");
 				String surname = rs.getString("surname");
 				String email = rs.getString("email");
-				Calendar created = DateConversionUtility.timestampToCalendar(rs.getTimestamp("created"));
 				Calendar date_of_birth = DateConversionUtility.timestampToCalendar(rs.getTimestamp("date_of_birth"));
-				Calendar last_access = DateConversionUtility.timestampToCalendar(rs.getTimestamp("last_access"));
 				String address = rs.getString("address");
-				user = new User (oid, name, surname, email, created, date_of_birth, last_access, address);
+				user = new User (oid, name, surname, email, date_of_birth, address);
 			}
 			
 		} catch (SQLException e) {
@@ -351,9 +348,9 @@ public class JDBCUserService implements UserService{
 		long getId = 0;
 		try {
 			connection = dataSource.getConnection();
-			String sqlUser = "insert into users (id, name, surname, email, password, created, date_of_birth, last_access, address)" +
-					"values (USERS_SEQ.NEXTVAL, ?,?,?,?,?,?,?,?)";
-			String sqlSeller = "insert into sellers (users_id, p_iva, cod_fisc, company, url, phone)" +
+			String sqlUser = "insert into users (id, name, surname, email, password, created, date_of_birth, address)" +
+					"values (USERS_SEQ.NEXTVAL, ?,?,?,?,?,?,?)";
+			String sqlSeller = "insert into sellers (users_id, p_iva, cod_fisc, company, url, telephone)" +
 					"values (?,?,?,?,?,?)";
 			
 			preparedStatement = connection.prepareStatement(sqlUser);
@@ -365,17 +362,23 @@ public class JDBCUserService implements UserService{
 			preparedStatement.setString(4, DigestUtils.md5Hex(seller.getPassword()));
 			preparedStatement.setTimestamp(5, new Timestamp(seller.getCreated().getTimeInMillis()));
 			preparedStatement.setTimestamp(6, new Timestamp(seller.getDate_of_birth().getTimeInMillis()));
-			preparedStatement.setTimestamp(7, new Timestamp(seller.getLast_access().getTimeInMillis()));
-			preparedStatement.setString(8, seller.getAddress());
+			//preparedStatement.setTimestamp(7, new Timestamp(seller.getLast_access().getTimeInMillis()));
+			preparedStatement.setString(7, seller.getAddress());
 			preparedStatement.executeUpdate();
 			
-			/* Mi prendo l'id appena creato e lo inserisco come id del seller */
-			rs = preparedStatement.getGeneratedKeys();
+			
+			// User INSERT eseguita!
+			String queryID = "select USERS_SEQ.CURRVAL from users";
+			PreparedStatement ps3 = connection.prepareStatement(queryID);
+			rs = ps3.executeQuery();
 			if (rs.next()){
 				getId = rs.getLong(1);
 			}
+			/* Prendo l'id dell'ultimo record inserito tramite le chiavi */
 			rs.close();
+			ps3.close();
 			preparedStatement.close();
+			/* FINE */
 			
 			preparedStatement2.setLong(1, getId);
 			preparedStatement2.setString(2, seller.getP_iva());
@@ -413,7 +416,7 @@ public class JDBCUserService implements UserService{
 		try {
 			connection = dataSource.getConnection();
 			String sql = "update users set name=?, surname=?, email=?, created=?, date_of_birth=?, last_access=?, address=? where id=?";
-			String sql2 = "update sellers set p_iva=?, cod_fisc=?, company=?, url=?, phone=? where id=?";
+			String sql2 = "update sellers set p_iva=?, cod_fisc=?, company=?, url=?, telephone=? where id=?";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement2 = connection.prepareStatement(sql2);
 			preparedStatement.setString(1, seller.getName());
@@ -470,7 +473,7 @@ public class JDBCUserService implements UserService{
 		try {
 			connection = dataSource.getConnection();
 			String sql = "update users set name=?, surname=?, email=?, created=?, date_of_birth=?, last_access=?, address=? where id=?";
-			String sql2 = "update sellers set url=?, phone=? where id=?";
+			String sql2 = "update sellers set url=?, telephone=? where id=?";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement2 = connection.prepareStatement(sql2);
 			preparedStatement.setString(1, seller.getName());
@@ -669,7 +672,7 @@ public class JDBCUserService implements UserService{
 	@Override
 	public ResponseGrid viewAllSellersPaginated(RequestGrid requestGrid)
 			throws BusinessException {
-		if ("id".equals(requestGrid.getSortCol())) {
+		if ("oid".equals(requestGrid.getSortCol())) {
 			requestGrid.setSortCol("id");
 		} else {
 			if ("name".equals(requestGrid.getSortCol())) {
@@ -679,12 +682,12 @@ public class JDBCUserService implements UserService{
 			}
 		}
 		String orderBy = (!"".equals(requestGrid.getSortCol()) && !"".equals(requestGrid.getSortDir())) ? "order by " + requestGrid.getSortCol() + " " + requestGrid.getSortDir() : "";
-		String baseSearch = "select u.id, u.name, u.surname, s.p_iva, s.company, s.phone " +
-			 	"from users u, sellers s " + 
-			 	((!"".equals(requestGrid.getsSearch())) ? " and u.name like '" + ConversionUtility.addPercentSuffix(requestGrid.getsSearch()) + "'":"");
+		String baseSearch = "select u.id, u.name, u.surname, s.p_iva, s.company, s.telephone " +
+			 	"from users u join sellers s on u.id=s.users_id " +
+			 	((!"".equals(requestGrid.getsSearch())) ? " and name like '" + ConversionUtility.addPercentSuffix(requestGrid.getsSearch()) + "'":"");
 		
 		String sql = "select * from (" +
-					 "select rownum as rn, u.id, u.name, u.surname, s.p_iva, s.company, s.phone from (" +
+					 "select rownum as rn, id, name, surname, p_iva, company, telephone from (" +
 					 	baseSearch +
 					 	orderBy + 
 					 ")" +
@@ -714,8 +717,8 @@ public class JDBCUserService implements UserService{
 				String surname = rs.getString("surname");
 				String p_iva = rs.getString("p_iva");
 				String company = rs.getString("company");
-				String phone = rs.getString("phone");
-				Seller seller = new Seller (id, name, surname,p_iva, company, phone);
+				String telephone = rs.getString("telephone");
+				Seller seller = new Seller (id, name, surname, p_iva, company, telephone);
 				sellers.add(seller);
 			}
 		} catch (SQLException e) {

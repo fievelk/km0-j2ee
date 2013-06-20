@@ -9,6 +9,7 @@
 	<form-bean name="requestgrid_form" type="it.univaq.mwt.j2ee.kmZero.presentation.common.RequestGridForm"/>
 	<form-bean name="user_create_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserCreateForm"></form-bean>
 	<form-bean name="user_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserForm"></form-bean>
+	<form-bean name="seller_create_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.SellerCreateForm"></form-bean>
 </form-beans>
 
 <action-mappings>
@@ -84,12 +85,70 @@
         	    type="org.apache.struts.actions.ForwardAction"/>
  		
  		<action name="user_create_form" scope="request"
- 				validate="true" input="users.createuser" 
+ 				validate="true" input="users.createuser"
  				path="/users/insert"
  				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
 				parameter="insert">
+			<forward name="success" path="/users/views.do" redirect="true"/>
+ 		</action>
+ 		
+ 		<action name="user_form" scope="request"
+				validate="false"
+				path="/users/update_start" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateStartUser">
+			<forward name="form" path="users.updateuser"/>
+		</action>
+		
+		<action name="user_form" scope="request"
+				validate="false" input="users.updateuser"
+				path="/users/update" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateUser">
+			<forward name="success" path="/users/views.do" redirect="true"/>
+		</action>
+ 		
+ 		<action name="user_form" scope="request"
+				validate="false"
+				path="/users/delete_start" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateStartUser">
+			<forward name="form" path="users.deleteuser"/>
+		</action>
+		
+		<action name="user_form" scope="request"
+				validate="false"
+				path="/users/delete" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="deleteUser">
+			<forward name="success" path="/users/views.do" redirect="true"/>
+		</action>
+		
+		
+		<action path="/sellers/views" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="views">
+			<forward name="success" path="sellers.views"/>
+		</action>
+		
+		<action path="/sellers/insert_start" parameter="sellers.createseller"
+        	    type="org.apache.struts.actions.ForwardAction"/>
+		
+		<action name="requestgrid_form" validate="false" scope="request"
+				path="/sellers/viewAllSellersPaginated" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="viewAllSellersPaginated">
+		</action>
+		
+		<action name="seller_create_form" scope="request"
+ 				validate="false" input="sellers.createseller"
+ 				path="/sellers/insert"
+ 				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="createSeller">
 			<forward name="success" path="/" redirect="true"/>
  		</action>
+ 		
+ 		
  <!-- ========== End User Action =============================== -->
  
  

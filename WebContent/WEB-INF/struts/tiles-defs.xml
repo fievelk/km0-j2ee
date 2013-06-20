@@ -45,9 +45,29 @@
     	<put name="body" value="/users/usercreateform.jsp"></put>
     </definition>
     
+    <definition name="users.updateuser" extends="standard">
+    	<put name="action" value="/users/update.do"></put>
+    	<put name="body" value="/users/userform.jsp"></put>
+    </definition>
+    
+    <definition name="users.deleteuser" extends="standard">
+        <put name="delete" value="true"/>
+        <put name="action" value="/users/delete.do"/>
+        <put name="body" value="/users/userform.jsp"/>
+    </definition>   
+    
+    
+    <definition name="sellers.views" extends="standard">
+        <put name="body" value="/users/sellerviews.jsp"/>
+    </definition>
+    
+    <definition name="sellers.createseller" extends="standard">
+    	<put name="action" value="/sellers/insert.do"></put>
+    	<put name="body" value="/users/sellercreateform.jsp"></put>
+    </definition>
     <!-- Old Library tiles -->
     
-    <definition name="titles.inserttitle" extends="standard" controllerClass="it.univaq.mwt.j2ee.library.presentation.titles.TitleKindTilesAction">
+    <!-- <definition name="titles.inserttitle" extends="standard" controllerClass="it.univaq.mwt.j2ee.library.presentation.titles.TitleKindTilesAction">
         <put name="action" value="/titles/insert.do"/>
         <put name="body" value="/titles/titleform.jsp"/>
     </definition>    
@@ -55,6 +75,6 @@
 	<definition name="titles.updatetitle" extends="standard" controllerClass="it.univaq.mwt.j2ee.library.presentation.titles.TitleKindTilesAction">
         <put name="action" value="/titles/update.do"/>
         <put name="body" value="/titles/titleform.jsp"/>
-    </definition>    
+    </definition>     -->
 
 </tiles-definitions>

@@ -22,9 +22,8 @@ public class Seller extends User {
 
 	// Costruttore da utilizzare quando il venditore si registra da zero.
 	public Seller(long oid, String name, String surname, String email, String password, Calendar created, Calendar date_of_birth,
-			Calendar last_access, String address, String p_iva, String cod_fisc, String company, String url, String phone, int enable) {
-		super(oid, name, surname, email, password, created, date_of_birth, last_access,
-				address);
+			String address, String p_iva, String cod_fisc, String company, String url, String phone, int enable) {
+		super(oid, name, surname, email, password, created, date_of_birth, address);
 		this.p_iva = p_iva;
 		this.cod_fisc = cod_fisc;
 		this.company = company;
@@ -45,7 +44,7 @@ public class Seller extends User {
 	
 	// Costruttore da utilizzare per visualizzare un venditore all'interno di una Datatables (Admin)
 	public Seller(long oid, String name, String surname, String p_iva, String company, String phone){
-		super(oid, name, surname, null, null, null, null, null);
+		super(oid, name, surname);
 		this.p_iva = p_iva;
 		this.company = company;
 		this.phone = phone;
