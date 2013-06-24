@@ -65,6 +65,22 @@
     	<put name="action" value="/sellers/insert.do"></put>
     	<put name="body" value="/users/sellercreateform.jsp"></put>
     </definition>
+    
+    <definition name="sellers.updateseller" extends="standard">
+    	<put name="action" value="/sellers/update.do"></put>
+    	<put name="body" value="/users/sellerform.jsp"></put>
+    </definition>
+    
+    <definition name="sellers.updateselleradmin" extends="standard">
+    	<put name="action" value="/sellers/update_admin.do"></put>
+    	<put name="body" value="/users/sellerformadmin.jsp"></put>
+    </definition>
+    
+    <definition name="sellers.deleteseller" extends="standard">
+        <put name="delete" value="true"/>
+        <put name="action" value="/sellers/delete.do"/>
+        <put name="body" value="/users/sellerformadmin.jsp"/>
+    </definition>
     <!-- Old Library tiles -->
     
     <!-- <definition name="titles.inserttitle" extends="standard" controllerClass="it.univaq.mwt.j2ee.library.presentation.titles.TitleKindTilesAction">

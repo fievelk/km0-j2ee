@@ -10,6 +10,8 @@
 	<form-bean name="user_create_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserCreateForm"></form-bean>
 	<form-bean name="user_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserForm"></form-bean>
 	<form-bean name="seller_create_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.SellerCreateForm"></form-bean>
+	<form-bean name="seller_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.SellerForm"></form-bean>
+	<form-bean name="seller_form_admin" type="it.univaq.mwt.j2ee.kmZero.presentation.users.SellerFormAdmin"></form-bean>
 </form-beans>
 
 <action-mappings>
@@ -117,7 +119,7 @@
 		</action>
 		
 		<action name="user_form" scope="request"
-				validate="false"
+				validate="false" input="users.deleteuser"
 				path="/users/delete" 
 				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
 				parameter="deleteUser">
@@ -148,7 +150,53 @@
 			<forward name="success" path="/" redirect="true"/>
  		</action>
  		
+ 		<action name="seller_form" scope="request"
+				validate="false"
+				path="/sellers/update_start" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateStartSeller">
+			<forward name="form" path="sellers.updateseller"/>
+		</action>
+		
+		<action name="seller_form" scope="request"
+				validate="false" input="sellers.updateseller"
+				path="/sellers/update" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateSeller">
+			<forward name="success" path="/sellers/views.do" redirect="true"/>
+		</action>
+		
+		<action name="seller_form_admin" scope="request"
+				validate="false"
+				path="/sellers/update_start_admin" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateStartSellerAdmin">
+			<forward name="form" path="sellers.updateselleradmin"/>
+		</action>
+		
+		<action name="seller_form_admin" scope="request"
+				validate="false" input="sellers.updateselleradmin"
+				path="/sellers/update_admin" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateSellerAdmin">
+			<forward name="success" path="/sellers/views.do" redirect="true"/>
+		</action>
+		
+		<action name="seller_form_admin" scope="request"
+				validate="false"
+				path="/sellers/delete_start" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateStartSellerAdmin">
+			<forward name="form" path="sellers.deleteseller"/>
+		</action>
  		
+ 		<action name="seller_form_admin" scope="request"
+				validate="false" input="sellers.deleteseller"
+				path="/sellers/delete"
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="deleteSeller">
+			<forward name="success" path="/sellers/views.do" redirect="true"/>
+		</action>
  <!-- ========== End User Action =============================== -->
  
  

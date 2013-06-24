@@ -16,7 +16,7 @@ public interface UserService {
 	
 	void updateUser(User user) throws BusinessException;
 	
-	void deleteUser(User user) throws BusinessException;
+	void deleteUser(long oid) throws BusinessException;
 	
 	/* Metodo vecchio per la visualizzazione della lista. Questo metodo potrebbe non servirci*/
 	List<User> viewAllUsers() throws BusinessException;
@@ -38,7 +38,7 @@ public interface UserService {
 	/* Il venditore non può modificare alcuni dei suoi dati manualmente e con questo metodo tutto questo viene garantito */
 	void updateSeller(Seller seller) throws BusinessException;
 	
-	void deleteSeller(Seller seller) throws BusinessException;
+	void deleteSeller(long oid) throws BusinessException;
 	
 	Seller findSellerByPK (Long oid) throws BusinessException;
 	

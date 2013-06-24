@@ -101,14 +101,14 @@ public class JDBCUserService implements UserService{
 	}
 
 	@Override
-	public void deleteUser(User user) throws BusinessException {
+	public void deleteUser(long oid) throws BusinessException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = dataSource.getConnection();
 			String sql = "delete from users where id=?";
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setLong(1, user.getOid());
+			preparedStatement.setLong(1, oid);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -415,20 +415,20 @@ public class JDBCUserService implements UserService{
 		PreparedStatement preparedStatement = null, preparedStatement2 = null;
 		try {
 			connection = dataSource.getConnection();
-			String sql = "update users set name=?, surname=?, email=?, created=?, date_of_birth=?, last_access=?, address=? where id=?";
-			String sql2 = "update sellers set p_iva=?, cod_fisc=?, company=?, url=?, telephone=? where id=?";
+			String sql = "update users set name=?, surname=?, email=?, date_of_birth=?, address=? where id=?";
+			String sql2 = "update sellers set p_iva=?, cod_fisc=?, company=?, url=?, telephone=? where users_id=?";
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement2 = connection.prepareStatement(sql2);
 			preparedStatement.setString(1, seller.getName());
 			preparedStatement.setString(2, seller.getSurname());
 			preparedStatement.setString(3, seller.getEmail());
-			preparedStatement.setTimestamp(4, new Timestamp(seller.getCreated().getTimeInMillis()));
-			preparedStatement.setTimestamp(5, new Timestamp(seller.getDate_of_birth().getTimeInMillis()));
-			preparedStatement.setTimestamp(6, new Timestamp(seller.getLast_access().getTimeInMillis()));
-			preparedStatement.setString(7, seller.getAddress());
-			preparedStatement.setLong(8, seller.getOid());
+			//preparedStatement.setTimestamp(4, new Timestamp(seller.getCreated().getTimeInMillis()));
+			preparedStatement.setTimestamp(4, new Timestamp(seller.getDate_of_birth().getTimeInMillis()));
+			//preparedStatement.setTimestamp(6, new Timestamp(seller.getLast_access().getTimeInMillis()));
+			preparedStatement.setString(5, seller.getAddress());
+			preparedStatement.setLong(6, seller.getOid());
 			preparedStatement.executeUpdate();
 			
+			preparedStatement2 = connection.prepareStatement(sql2);
 			preparedStatement2.setString(1, seller.getP_iva());
 			preparedStatement2.setString(2, seller.getCod_fisc());
 			preparedStatement2.setString(3, seller.getCompany());
@@ -472,24 +472,26 @@ public class JDBCUserService implements UserService{
 		PreparedStatement preparedStatement = null, preparedStatement2 = null;
 		try {
 			connection = dataSource.getConnection();
-			String sql = "update users set name=?, surname=?, email=?, created=?, date_of_birth=?, last_access=?, address=? where id=?";
-			String sql2 = "update sellers set url=?, telephone=? where id=?";
+			String sql = "update users set name=?, surname=?, email=?, date_of_birth=?, address=? where id=?";
+			String sql2 = "update sellers set url=?, telephone=? where users_id=?";
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement2 = connection.prepareStatement(sql2);
 			preparedStatement.setString(1, seller.getName());
 			preparedStatement.setString(2, seller.getSurname());
 			preparedStatement.setString(3, seller.getEmail());
-			preparedStatement.setTimestamp(4, new Timestamp(seller.getCreated().getTimeInMillis()));
-			preparedStatement.setTimestamp(5, new Timestamp(seller.getDate_of_birth().getTimeInMillis()));
-			preparedStatement.setTimestamp(6, new Timestamp(seller.getLast_access().getTimeInMillis()));
-			preparedStatement.setString(7, seller.getAddress());
-			preparedStatement.setLong(8, seller.getOid());
+			//preparedStatement.setTimestamp(4, new Timestamp(seller.getCreated().getTimeInMillis()));
+			preparedStatement.setTimestamp(4, new Timestamp(seller.getDate_of_birth().getTimeInMillis()));
+			//preparedStatement.setTimestamp(6, new Timestamp(seller.getLast_access().getTimeInMillis()));
+			preparedStatement.setString(5, seller.getAddress());
+			preparedStatement.setLong(6, seller.getOid());
 			preparedStatement.executeUpdate();
 			
+			System.out.println(seller.getName());
+			
+			preparedStatement2 = connection.prepareStatement(sql2);
 			preparedStatement2.setString(1, seller.getUrl());
 			preparedStatement2.setString(2, seller.getPhone());
 			preparedStatement2.setLong(3, seller.getOid());
-			preparedStatement.executeUpdate();
+			preparedStatement2.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -521,14 +523,14 @@ public class JDBCUserService implements UserService{
 	}
 
 	@Override
-	public void deleteSeller(Seller seller) throws BusinessException {
+	public void deleteSeller(long oid) throws BusinessException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = dataSource.getConnection();
-			String sql = "delete from sellers where id=?";
+			String sql = "delete from sellers where users_id=?";
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setLong(1, seller.getOid());
+			preparedStatement.setLong(1, oid);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -560,29 +562,31 @@ public class JDBCUserService implements UserService{
 		Seller seller = new Seller();
 		try {
 			connection = dataSource.getConnection();
-			String sqlUser = "select name, surname, email, created, date_of_birth, last_access, address from users where id=?";
-			String sqlSeller = "select * from sellers where id=?";
+			String sqlUser = "select name, surname, email, date_of_birth, address from users where id=?";
+			String sqlSeller = "select p_iva, cod_fisc, company, url, telephone from sellers where users_id=?";
 			preparedStatement = connection.prepareStatement(sqlUser);
 			preparedStatement2 = connection.prepareStatement(sqlSeller);
 			preparedStatement.setLong(1, oid);
 			preparedStatement2.setLong(1, oid);
 			rs = preparedStatement.executeQuery();
 			rs2 = preparedStatement2.executeQuery();
+			seller.setOid(oid);
 			if (rs.next()){
 				seller.setName(rs.getString("name"));
 				seller.setSurname(rs.getString("surname"));
-				seller.setAddress(rs.getString("email"));
-				seller.setCreated(DateConversionUtility.timestampToCalendar(rs.getTimestamp("created")));
+				seller.setEmail(rs.getString("email"));
+				//seller.setCreated(DateConversionUtility.timestampToCalendar(rs.getTimestamp("created")));
 				seller.setDate_of_birth(DateConversionUtility.timestampToCalendar(rs.getTimestamp("date_of_birth")));
-				seller.setLast_access(DateConversionUtility.timestampToCalendar(rs.getTimestamp("last_access")));
+				//seller.setLast_access(DateConversionUtility.timestampToCalendar(rs.getTimestamp("last_access")));
 				seller.setAddress(rs.getString("address"));
+				
 			}
 			if (rs2.next()){
-				seller.setP_iva(rs.getString("p_iva"));
-				seller.setCod_fisc(rs.getString("cod_fisc"));
-				seller.setCompany(rs.getString("company"));
-				seller.setUrl(rs.getString("url"));
-				seller.setPhone(rs.getString("phone"));
+				seller.setP_iva(rs2.getString("p_iva"));
+				seller.setCod_fisc(rs2.getString("cod_fisc"));
+				seller.setCompany(rs2.getString("company"));
+				seller.setUrl(rs2.getString("url"));
+				seller.setPhone(rs2.getString("telephone"));
 			}
 			
 		} catch (SQLException e) {

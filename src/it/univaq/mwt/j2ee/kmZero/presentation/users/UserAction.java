@@ -120,12 +120,9 @@ public class UserAction extends MappingDispatchAction{
 	
 	public ActionForward deleteUser(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
 		UserForm form = (UserForm) actionForm;
-		//User user = new User();
-		//BeanUtils.copyProperties(user, form);
-		User user = new User (form.getOid(), form.getName(), form.getSurname(), form.getEmail(), DateConversionUtility.stringToCalendar(form.getDate_of_birth()), form.getAddress());
 		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
 		UserService service = factory.getUserService();
-		service.deleteUser(user);
+		service.deleteUser(form.getOid());
 		return mapping.findForward("success");
 	}
 	
@@ -156,6 +153,56 @@ public class UserAction extends MappingDispatchAction{
 		ResponseUtility.generateJsonResponse(response, json);
 		
 		return null;
+	}
+	
+	public ActionForward updateStartSeller(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
+		SellerForm form = (SellerForm) actionForm;
+		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
+		UserService service = factory.getUserService();
+		Seller seller = service.findSellerByPK(form.getOid());
+		BeanUtils.copyProperties(form, seller);
+		PropertyUtils.setProperty(form, "date_of_birth", DateConversionUtility.calendarDateToString(seller.getDate_of_birth()));
+		return mapping.findForward("form");
+	}
+	
+	public ActionForward updateStartSellerAdmin(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
+		SellerFormAdmin form = (SellerFormAdmin) actionForm;
+		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
+		UserService service = factory.getUserService();
+		Seller seller = service.findSellerByPK(form.getOid());
+		BeanUtils.copyProperties(form, seller);
+		PropertyUtils.setProperty(form, "date_of_birth", DateConversionUtility.calendarDateToString(seller.getDate_of_birth()));
+		return mapping.findForward("form");
+	}
+	
+	public ActionForward updateSeller(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
+		SellerForm form = (SellerForm) actionForm;
+		Seller seller = new Seller (form.getOid(), form.getName(), form.getSurname(), form.getEmail(), DateConversionUtility.stringToCalendar(form.getDate_of_birth()),
+				form.getAddress(), form.getUrl(), form.getPhone());
+		
+		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
+		UserService service = factory.getUserService();
+		service.updateSeller(seller);
+		return mapping.findForward("success");
+	}
+	
+	public ActionForward updateSellerAdmin(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
+		SellerFormAdmin form = (SellerFormAdmin) actionForm;
+		Seller seller = new Seller (form.getOid(), form.getName(), form.getSurname(), form.getEmail(), DateConversionUtility.stringToCalendar(form.getDate_of_birth()),
+				form.getAddress(), form.getP_iva(), form.getCod_fisc(), form.getCompany(), form.getUrl(), form.getPhone());
+		
+		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
+		UserService service = factory.getUserService();
+		service.updateSellerByAdmin(seller);
+		return mapping.findForward("success");
+	}
+	
+	public ActionForward deleteSeller(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
+		SellerFormAdmin form = (SellerFormAdmin) actionForm;
+		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
+		UserService service = factory.getUserService();
+		service.deleteSeller(form.getOid());
+		return mapping.findForward("success");
 	}
 	
 }
