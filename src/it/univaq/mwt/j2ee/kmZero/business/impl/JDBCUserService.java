@@ -191,7 +191,7 @@ public class JDBCUserService implements UserService{
 		String orderBy = (!"".equals(requestGrid.getSortCol()) && !"".equals(requestGrid.getSortDir())) ? "order by " + requestGrid.getSortCol() + " " + requestGrid.getSortDir() : "";
 		String baseSearch = "select id, name, surname, email, created, date_of_birth, last_access, address  " +
 			 	"from users " +
-			 	((!"".equals(requestGrid.getsSearch())) ? " and name like '" + ConversionUtility.addPercentSuffix(requestGrid.getsSearch()) + "'":"");
+			 	((!"".equals(requestGrid.getsSearch())) ? " where name like '" + ConversionUtility.addPercentSuffix(requestGrid.getsSearch()) + "'":"");
 		
 		String sql = "select * from (" +
 					 "select rownum as rn, id, name, surname, email, created, date_of_birth, last_access, address from (" +
