@@ -81,6 +81,17 @@
         <put name="action" value="/sellers/delete.do"/>
         <put name="body" value="/users/sellerformadmin.jsp"/>
     </definition>
+    
+    <definition name="users.updatepassword" extends="standard">
+        <put name="action" value="/users/edit_password.do"/>
+        <put name="body" value="/users/passwordform.jsp"/>
+    </definition>
+    
+    <definition name="users.updatepassword" extends="standard">
+    	<put name="wrongpass" value="true"/>
+        <put name="action" value="/users/edit_password.do"/>
+        <put name="body" value="/users/passwordform.jsp"/>
+    </definition>
     <!-- Old Library tiles -->
     
     <!-- <definition name="titles.inserttitle" extends="standard" controllerClass="it.univaq.mwt.j2ee.library.presentation.titles.TitleKindTilesAction">

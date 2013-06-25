@@ -27,10 +27,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.MappingDispatchAction;
+
+import sun.security.util.Password;
 
 public class UserAction extends MappingDispatchAction{
 	
@@ -50,10 +53,6 @@ public class UserAction extends MappingDispatchAction{
 		
 		return null;
 	}
-	
-	/*public ActionForward insertStart(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response){
-		return mapping.findForward("form");
-	}*/
 	
 	public ActionForward insert (ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
 		UserCreateForm form = (UserCreateForm) actionForm;
@@ -104,17 +103,6 @@ public class UserAction extends MappingDispatchAction{
 		
 		service.updateUser(user);
 
-		/* La modifica della password la faccio tramite metodi e form separati!
-		 * 
-		 * try {
-			 Gestione MD5 per il confronto delle password e questo lo faccio con MessageDigest di Java Security 
-			String oldPass = service.getPassword(form.getOid());
-			if (form.getNew_password().equals(form.getConfirm_password()) && (form.getOld_password().equals(oldPass))){
-				service.createUser(user);
-			}
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}*/
 		return mapping.findForward("success");
 	}
 	
@@ -203,6 +191,25 @@ public class UserAction extends MappingDispatchAction{
 		UserService service = factory.getUserService();
 		service.deleteSeller(form.getOid());
 		return mapping.findForward("success");
+	}
+	
+	public ActionForward updateStartPassword(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
+		return mapping.findForward("form");
+	}
+	
+	public ActionForward updatePassword(ActionMapping mapping, ActionForm actionForm, HttpServletRequest req, HttpServletResponse response) throws Exception{
+		PasswordForm form = (PasswordForm) actionForm;
+		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
+		UserService service = factory.getUserService();
+		User user = service.getPassword(form.getOid());
+		String oldPassForm = DigestUtils.md5Hex(form.getOldPass());
+		if (oldPassForm.equals(user.getPassword())){
+			long oid = form.getOid();
+			String newPass = form.getNewPass();
+			service.updatePassword(oid, newPass);
+			return mapping.findForward("success");
+		}
+		return mapping.findForward("failure");
 	}
 	
 }

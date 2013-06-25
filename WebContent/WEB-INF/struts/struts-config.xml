@@ -12,6 +12,7 @@
 	<form-bean name="seller_create_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.SellerCreateForm"></form-bean>
 	<form-bean name="seller_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.SellerForm"></form-bean>
 	<form-bean name="seller_form_admin" type="it.univaq.mwt.j2ee.kmZero.presentation.users.SellerFormAdmin"></form-bean>
+	<form-bean name="password_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.PasswordForm"></form-bean>
 </form-beans>
 
 <action-mappings>
@@ -196,6 +197,30 @@
 				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
 				parameter="deleteSeller">
 			<forward name="success" path="/sellers/views.do" redirect="true"/>
+		</action>
+		
+		<action name="password_form" scope="request"
+				validate="false"
+				path="/users/edit_password" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateStartPassword">
+			<forward name="form" path="users.updatepassword"/>
+		</action>
+		
+		<action name="password_form" scope="request"
+				validate="false"
+				path="passwordform.jsp" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updatePassword">
+			<forward name="failure" path="users.updatepasswordfailure"/>
+		</action>
+		
+		<action name="password_form" scope="request"
+				validate="false" input="users.updatepassword"
+				path="/users/update_password" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updatePassword">
+			<forward name="success" path="/users/views.do" redirect="true"/>
 		</action>
  <!-- ========== End User Action =============================== -->
  

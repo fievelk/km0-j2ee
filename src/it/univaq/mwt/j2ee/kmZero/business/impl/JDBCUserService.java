@@ -294,13 +294,13 @@ public class JDBCUserService implements UserService{
 		}
 		return user;
 	}
-	
+		
 	@Override
-	public String getPassword(Long oid) throws BusinessException {
+	public User getPassword(Long oid) throws BusinessException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-		String password = null;
+		User user = null;
 		try {
 			connection = dataSource.getConnection();
 			String sql = "select password from users where id=?";
@@ -308,7 +308,8 @@ public class JDBCUserService implements UserService{
 			preparedStatement.setLong(1, oid);
 			rs = preparedStatement.executeQuery();
 			if (rs.next()){
-				password = rs.getString("password");
+				String password = rs.getString("password");
+				user = new User (oid, password);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -330,7 +331,7 @@ public class JDBCUserService implements UserService{
 				} catch (SQLException e) {}
 			}
 		}
-		return password;
+		return user;
 	}
 
 	@Override

@@ -21,7 +21,8 @@
 		                    "sDefaultContent": "",
 		                    "fnRender": function (oObj) {
 		                       return "<a href='${pageContext.request.contextPath}/users/update_start.do?oid=" + oObj.aData['oid'] + "'>Edit</a>" + " | "+ 
-		                       		  "<a href='${pageContext.request.contextPath}/users/delete_start.do?oid=" + oObj.aData['oid'] + "'>Delete</a>";
+		                       		  "<a href='${pageContext.request.contextPath}/users/delete_start.do?oid=" + oObj.aData['oid'] + "'>Delete</a>" + " | " +
+		                       		  "<a href='${pageContext.request.contextPath}/users/edit_password.do?oid=" + oObj.aData['oid'] + "'>Edit Pass</a>";
 		                    	
 		                     }
 		                  }

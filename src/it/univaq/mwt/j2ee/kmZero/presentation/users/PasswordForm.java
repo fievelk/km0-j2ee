@@ -7,9 +7,10 @@ import org.apache.struts.validator.ValidatorForm;
 public class PasswordForm extends ValidatorForm{
 	
 	private long oid;
-	private String oldPassword;
-	private String newPassword;
-	private String confirm_password;	
+	private String password; // Password vecchia del DB
+	private String oldPass; // Password vecchia del form
+	private String newPass;
+	private String confirmPass;	
 	
 	public long getOid() {
 		return oid;
@@ -17,24 +18,30 @@ public class PasswordForm extends ValidatorForm{
 	public void setOid(long oid) {
 		this.oid = oid;
 	}
-	public String getOldPassword() {
-		return oldPassword;
-	}
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
-	}
-	public String getNewPassword() {
-		return newPassword;
-	}
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
-	public String getConfirm_password() {
-		return confirm_password;
-	}
-	public void setConfirm_password(String confirm_password) {
-		this.confirm_password = confirm_password;
-	}
 	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getOldPass() {
+		return oldPass;
+	}
+	public void setOldPass(String oldPass) {
+		this.oldPass = oldPass;
+	}
+	public String getNewPass() {
+		return newPass;
+	}
+	public void setNewPass(String newPass) {
+		this.newPass = newPass;
+	}
+	public String getConfirmPass() {
+		return confirmPass;
+	}
+	public void setConfirmPass(String confirmPass) {
+		this.confirmPass = confirmPass;
+	}
 	
 }
