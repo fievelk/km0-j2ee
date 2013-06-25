@@ -6,7 +6,7 @@
 
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		var wpass = "${requestScope.wrongpass}";
+		var wpass = "${requestScope.wpass}";
 		if (wpass == "true" ) {
 			alert("Password vecchia errata!");
 		}		
@@ -20,27 +20,27 @@
 <html:hidden property="oid"/>
 <html:hidden property="password"/>
 <div class="control-group">
-    <label class="control-label" for=oldPass><bean:message key="password.old"/></label>
+    <label class="control-label" for=oldPass><bean:message key="password.oldPass"/></label>
     <div class="controls">
-    	<html:text styleId="oldPass" property="oldPass"/>
+    	<html:password styleId="oldPass" property="oldPass"/>
     </div>
 </div>
 <div class="control-group">
-    <label class="control-label" for="newPass"><bean:message key="password.new"/></label>
+    <label class="control-label" for="newPass"><bean:message key="password.newPass"/></label>
     <div class="controls">
-    	<html:text styleId="newPass" property="newPass"/>
+    	<html:password styleId="newPass" property="newPass"/>
     </div>
 </div>
 <div class="control-group">
-    <label class="control-label" for="confirmPass"><bean:message key="password.confirm"/></label>
+    <label class="control-label" for="confirmPass"><bean:message key="password.confirmPass"/></label>
     <div class="controls">
-    	<html:text styleId="confirmPass" property="confirmPass"/>
+    	<html:password styleId="confirmPass" property="confirmPass"/>
     </div>
 </div>
 
 <div class="control-group">
     <div class="controls">
-      <button type="submit" class="btn btn-primary">Invia</button>
+      <button type="submit">Invia</button>
     </div>
 </div>
 </html:form>

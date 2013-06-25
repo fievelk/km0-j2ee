@@ -761,9 +761,9 @@ public class JDBCUserService implements UserService{
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = dataSource.getConnection();
-			String sql = "update users set password=? from users where id=?";
+			String sql = "update users set password=? where id=?";
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, password);
+			preparedStatement.setString(1, DigestUtils.md5Hex(password));
 			preparedStatement.setLong(2, oid);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {

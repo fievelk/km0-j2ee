@@ -202,13 +202,15 @@ public class UserAction extends MappingDispatchAction{
 		KmZeroBusinessFactory factory = KmZeroBusinessFactory.getInstance();
 		UserService service = factory.getUserService();
 		User user = service.getPassword(form.getOid());
-		String oldPassForm = DigestUtils.md5Hex(form.getOldPass());
-		if (oldPassForm.equals(user.getPassword())){
-			long oid = form.getOid();
-			String newPass = form.getNewPass();
-			service.updatePassword(oid, newPass);
+		String oldPass = user.getPassword();
+		String newPass = form.getNewPass();
+		System.out.println(oldPass + "1");
+		System.out.println(form.getOldPass() + "2");
+		if (oldPass.equals(DigestUtils.md5Hex(form.getOldPass()))){
+			service.updatePassword(form.getOid(), newPass);
 			return mapping.findForward("success");
 		}
+		
 		return mapping.findForward("failure");
 	}
 	
