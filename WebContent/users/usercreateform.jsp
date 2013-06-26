@@ -42,7 +42,7 @@ $(function() {
 			<!-- Main content -->
 			
 			<div class="span9">
-				<h5 class="title">Aggiungi un Utente</h5>
+				<h5 class="title"><bean:message key="user.add"/></h5>
 				<div class="form form-small">
 					<html:errors/>
 					<html:form styleClass="form-horizontal" action="${requestScope.action}">

@@ -18,24 +18,24 @@
     </definition>
     
     <definition name="products.views" extends="standard">
-        <put name="body" value="/products/productslist.jsp"/>
+        <put name="content" value="/products/productslist.jsp"/>
     </definition>
     
     <definition name="products.viewsforsellers" extends="standard">
-        <put name="body" value="/products/productslistforsellers.jsp"/>
+        <put name="content" value="/products/productslistforsellers.jsp"/>
     </definition>
      
     <!-- tile per la form di inserimento del Product -->
     <definition name="products.insertproduct" extends="standard" 
     			controllerClass="it.univaq.mwt.j2ee.kmZero.presentation.products.CategoriesTilesAction">
     	<put name="action" value="/products/insert.do"></put>
-    	<put name="body" value="/products/insertproduct.jsp"></put>
+    	<put name="content" value="/products/insertproduct.jsp"></put>
     </definition>
     
     <definition name="products.updateproduct" extends="standard" 
     			controllerClass="it.univaq.mwt.j2ee.kmZero.presentation.products.CategoriesTilesAction">
     	<put name="action" value="/products/update.do"></put>
-    	<put name="body" value="/products/updateproduct.jsp"></put>
+    	<put name="content" value="/products/updateproduct.jsp"></put>
     </definition>    
     
     <!-- Tiles per la form della creazione dell'utente -->
@@ -51,13 +51,13 @@
     
     <definition name="users.updateuser" extends="standard">
     	<put name="action" value="/users/update.do"></put>
-    	<put name="body" value="/users/userform.jsp"></put>
+    	<put name="content" value="/users/userform.jsp"></put>
     </definition>
     
     <definition name="users.deleteuser" extends="standard">
         <put name="delete" value="true"/>
         <put name="action" value="/users/delete.do"/>
-        <put name="body" value="/users/userform.jsp"/>
+        <put name="content" value="/users/userform.jsp"/>
     </definition>   
     
     
@@ -67,34 +67,34 @@
     
     <definition name="sellers.createseller" extends="standard">
     	<put name="action" value="/sellers/insert.do"></put>
-    	<put name="body" value="/users/sellercreateform.jsp"></put>
+    	<put name="content" value="/users/sellercreateform.jsp"></put>
     </definition>
     
     <definition name="sellers.updateseller" extends="standard">
     	<put name="action" value="/sellers/update.do"></put>
-    	<put name="body" value="/users/sellerform.jsp"></put>
+    	<put name="content" value="/users/sellerform.jsp"></put>
     </definition>
     
     <definition name="sellers.updateselleradmin" extends="standard">
     	<put name="action" value="/sellers/update_admin.do"></put>
-    	<put name="body" value="/users/sellerformadmin.jsp"></put>
+    	<put name="content" value="/users/sellerformadmin.jsp"></put>
     </definition>
     
     <definition name="sellers.deleteseller" extends="standard">
         <put name="delete" value="true"/>
         <put name="action" value="/sellers/delete.do"/>
-        <put name="body" value="/users/sellerformadmin.jsp"/>
+        <put name="content" value="/users/sellerformadmin.jsp"/>
     </definition>
     
     <definition name="users.updatepassword" extends="standard">
         <put name="action" value="/users/edit_password.do"/>
-        <put name="body" value="/users/passwordform.jsp"/>
+        <put name="content" value="/users/passwordform.jsp"/>
     </definition>
     
     <definition name="users.wrongupdatepassword" extends="standard">
     	<put name="wpass" value="true"/>
         <put name="action" value="/users/edit_password.do"/>
-        <put name="body" value="/users/passwordform.jsp"/>
+        <put name="content" value="/users/passwordform.jsp"/>
     </definition>
     <!-- Old Library tiles -->
     

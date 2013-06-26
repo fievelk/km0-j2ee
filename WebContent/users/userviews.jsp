@@ -25,7 +25,7 @@
 		                    "fnRender": function (oObj) {
 		                       return "<a href='${pageContext.request.contextPath}/users/update_start.do?oid=" + oObj.aData['oid'] + "'><span class='ui-icon ui-icon-pencil'></span></a>" +  
 		                       		  "<a href='${pageContext.request.contextPath}/users/delete_start.do?oid=" + oObj.aData['oid'] + "'><span class='ui-icon ui-icon-circle-close'></span></a>" + 
-		                       		  "<a href='${pageContext.request.contextPath}/users/edit_password.do?oid=" + oObj.aData['oid'] + "'><span class='ui-icon ui-icon-locked'></a>";
+		                       		  "<a href='${pageContext.request.contextPath}/users/edit_start_password.do?oid=" + oObj.aData['oid'] + "'><span class='ui-icon ui-icon-locked'></a>";
 		                    	
 		                     }
 		                  }
@@ -65,9 +65,9 @@
 
           <!-- <h5 class="title">My Account</h5> -->
 
-          <h5 class="title">Gestione Utenti</h5>
+          <h5 class="title"><bean:message key="user.views"/></h5>
           	<div class="row-fluid">
-				<a class="btn" href="${pageContext.request.contextPath}/users/insert_start.do">Aggiungi un utente</a>
+				<a class="btn" href="${pageContext.request.contextPath}/users/insert_start.do"><bean:message key="user.add"/>e</a>
 			</div>
 
             <table id="user" class="table table-striped tcart">
