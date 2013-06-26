@@ -91,8 +91,8 @@
         <put name="body" value="/users/passwordform.jsp"/>
     </definition>
     
-    <definition name="users.updatepassword" extends="standard">
-    	<put name="wrongpass" value="true"/>
+    <definition name="users.wrongupdatepassword" extends="standard">
+    	<put name="wpass" value="true"/>
         <put name="action" value="/users/edit_password.do"/>
         <put name="body" value="/users/passwordform.jsp"/>
     </definition>

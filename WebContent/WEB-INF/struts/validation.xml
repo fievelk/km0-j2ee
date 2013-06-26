@@ -62,9 +62,31 @@
 				</var>
 			</field>
 		</form>
+		
+		<form name="password_form">
+			<field property="oldPass" depends="required">
+				<arg key="password.oldPass"/>
+			</field>
+			
+			<field property="newPass" depends="required,maxlength">
+				<arg key="password.newPass"/>
+				<arg name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+                    <var-value>255</var-value>
+				</var>
+			</field>
+			<field property="confirmPass" depends="required,validwhen">
+				<arg key="password.confirmPass"/>
+				<msg name="validwhen" key="errors.validwhen"/>
+				<var>
+	                <var-name>test</var-name>
+	                <var-value>(*this* == newPass)</var-value>
+                </var>
+			</field>
+		</form>
 	</formset>
 
-	
              
     <!-- <formset>
       <form name="title_form">
