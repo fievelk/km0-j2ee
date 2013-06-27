@@ -25,7 +25,7 @@ public class User {
 	}
 	
 	public User(String name, String surname, String email, String password,
-			Calendar created, Calendar date_of_birth, Calendar last_access, String address) {
+			Calendar created, Calendar date_of_birth, String address) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -33,37 +33,52 @@ public class User {
 		this.password = password;
 		this.created = created;
 		this.date_of_birth = date_of_birth;
-		this.last_access = last_access;
 		this.address = address;
 	}
 
-	public User(long oid, String name, String surname, String email,
-			String password, Calendar created, Calendar date_of_birth,
-			Calendar last_access, String address) {
+	public User(long oid, String name, String surname, String email, String password,
+			Calendar created, Calendar date_of_birth, String address) {
 		super();
 		this.oid = oid;
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
 		this.password = password;
+		this.created = created;
+		this.date_of_birth = date_of_birth;
+		this.address = address;
+	}
+	
+	/* Costruttore per visualizzare la lista degli utenti senza il campo password */
+	public User(long oid, String name, String surname, String email,
+			Calendar created, Calendar date_of_birth, Calendar last_access, String address) {
+		super();
+		this.oid = oid;
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
 		this.created = created;
 		this.date_of_birth = date_of_birth;
 		this.last_access = last_access;
 		this.address = address;
 	}
 	
-	/* Costruttore per visualizzare la lista degli utenti senza il campo password ed anche per aggiornare il profilo utente */
-	public User(long oid, String name, String surname, String email,
-			Calendar created, Calendar date_of_birth, Calendar last_access, String address) {
+	/* Costruttore per aggiornare il profilo utente */
+	public User(long oid, String name, String surname, String email, Calendar date_of_birth, String address) {
 		super();
 		this.oid = oid;
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
-		this.created = created;
 		this.date_of_birth = date_of_birth;
-		this.last_access = last_access;
 		this.address = address;
+	}
+	
+	/* Costruttore che serve al Seller quando verrà visualizzata la lista tramite Datatables */
+	public User(long oid, String name, String surname){
+		this.oid = oid;
+		this.name = name;
+		this.surname = surname;
 	}
 	
 	// Costruttore per il cambio password

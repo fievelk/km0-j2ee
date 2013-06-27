@@ -14,6 +14,10 @@
 					<li><a href="${pageContext.request.contextPath}/products/views.do">Lista Prodotti Vista User</a></li>
 					<li><a href="${pageContext.request.contextPath}/products/viewsforsellers.do">Lista Prodotti Vista Seller</a></li>
 					<li><a href="${pageContext.request.contextPath}/products/insert_start.do">Aggiungi Prodotto</a></li>
+					<li><a href="${pageContext.request.contextPath}/users/views.do">Lista Utenti</a></li>
+					<li><a href="${pageContext.request.contextPath}/users/insert_start.do">Registrati</a></li>
+					<li><a href="${pageContext.request.contextPath}/sellers/views.do">Lista Venditori</a></li>
+					<li><a href="${pageContext.request.contextPath}/sellers/insert_start.do">Registrati come Venditore</a></li>
 		</ul>
        </div>
      </div>

@@ -22,9 +22,8 @@ public class Seller extends User {
 
 	// Costruttore da utilizzare quando il venditore si registra da zero.
 	public Seller(long oid, String name, String surname, String email, String password, Calendar created, Calendar date_of_birth,
-			Calendar last_access, String address, String p_iva, String cod_fisc, String company, String url, String phone, int enable) {
-		super(oid, name, surname, email, password, created, date_of_birth, last_access,
-				address);
+			String address, String p_iva, String cod_fisc, String company, String url, String phone, int enable) {
+		super(oid, name, surname, email, password, created, date_of_birth, address);
 		this.p_iva = p_iva;
 		this.cod_fisc = cod_fisc;
 		this.company = company;
@@ -45,11 +44,30 @@ public class Seller extends User {
 	
 	// Costruttore da utilizzare per visualizzare un venditore all'interno di una Datatables (Admin)
 	public Seller(long oid, String name, String surname, String p_iva, String company, String phone){
-		super(oid, name, surname, null, null, null, null, null);
+		super(oid, name, surname);
 		this.p_iva = p_iva;
 		this.company = company;
 		this.phone = phone;
 	}
+	
+	// Costruttore da utilizzare al momento della cancellazione e delle modifica di un venditore
+	public Seller(long oid, String name, String surname, String email, Calendar date_of_birth,
+			String address, String p_iva, String cod_fisc, String company, String url, String phone){
+		super(oid, name, surname, email, date_of_birth, address);
+		this.p_iva = p_iva;
+		this.cod_fisc = cod_fisc;
+		this.company = company;
+		this.url = url;
+		this.phone = phone;
+	}
+	
+	// Costruttore da utilizzare al momento della modifica di un venditore da parte di quest'ultimo
+		public Seller(long oid, String name, String surname, String email, Calendar date_of_birth,
+				String address, String url, String phone){
+			super(oid, name, surname, email, date_of_birth, address);
+			this.url = url;
+			this.phone = phone;
+		}
 	
 	// Costruttore con Id User e nome della Company utilizzato per la visualizzazione dei prodotti di un venditore e
 	// per far visualizzare ad un utente la lista dei venditori.

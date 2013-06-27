@@ -6,6 +6,13 @@
 
 <form-beans>
 	<form-bean name="product_form" type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductForm"/>
+	<form-bean name="requestgrid_form" type="it.univaq.mwt.j2ee.kmZero.presentation.common.RequestGridForm"/>
+	<form-bean name="user_create_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserCreateForm"></form-bean>
+	<form-bean name="user_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserForm"></form-bean>
+	<form-bean name="seller_create_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.SellerCreateForm"></form-bean>
+	<form-bean name="seller_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.SellerForm"></form-bean>
+	<form-bean name="seller_form_admin" type="it.univaq.mwt.j2ee.kmZero.presentation.users.SellerFormAdmin"></form-bean>
+	<form-bean name="password_form" type="it.univaq.mwt.j2ee.kmZero.presentation.users.PasswordForm"></form-bean>
 </form-beans>
 
 <action-mappings>
@@ -63,10 +70,159 @@
 			<forward name="success" path="products.insertproduct"/>
 		</action>
  -->		
+ 
+ <!-- ========== Begin User Action =============================== -->
+ 		<action path="/users/views" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="views">
+			<forward name="success" path="users.views"/>
+		</action>
+		
+		<action name="requestgrid_form" validate="false" scope="request"
+				path="/users/viewAllUsersPaginated" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="viewAllUsersPaginated">
+		</action>
+ 
+ 		<action path="/users/insert_start" parameter="users.createuser"
+        	    type="org.apache.struts.actions.ForwardAction"/>
+ 		
+ 		<action name="user_create_form" scope="request"
+ 				validate="true" input="users.createuser"
+ 				path="/users/insert"
+ 				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="insert">
+			<forward name="success" path="/users/views.do" redirect="true"/>
+ 		</action>
+ 		
+ 		<action name="user_form" scope="request"
+				validate="false"
+				path="/users/update_start" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateStartUser">
+			<forward name="form" path="users.updateuser"/>
+		</action>
+		
+		<action name="user_form" scope="request"
+				validate="false" input="users.updateuser"
+				path="/users/update" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateUser">
+			<forward name="success" path="/users/views.do" redirect="true"/>
+		</action>
+ 		
+ 		<action name="user_form" scope="request"
+				validate="false"
+				path="/users/delete_start" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateStartUser">
+			<forward name="form" path="users.deleteuser"/>
+		</action>
+		
+		<action name="user_form" scope="request"
+				validate="false" input="users.deleteuser"
+				path="/users/delete" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="deleteUser">
+			<forward name="success" path="/users/views.do" redirect="true"/>
+		</action>
+		
+		
+		<action path="/sellers/views" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="views">
+			<forward name="success" path="sellers.views"/>
+		</action>
+		
+		<action path="/sellers/insert_start" parameter="sellers.createseller"
+        	    type="org.apache.struts.actions.ForwardAction"/>
+		
+		<action name="requestgrid_form" validate="false" scope="request"
+				path="/sellers/viewAllSellersPaginated" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="viewAllSellersPaginated">
+		</action>
+		
+		<action name="seller_create_form" scope="request"
+ 				validate="false" input="sellers.createseller"
+ 				path="/sellers/insert"
+ 				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="createSeller">
+			<forward name="success" path="/" redirect="true"/>
+ 		</action>
+ 		
+ 		<action name="seller_form" scope="request"
+				validate="false"
+				path="/sellers/update_start" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateStartSeller">
+			<forward name="form" path="sellers.updateseller"/>
+		</action>
+		
+		<action name="seller_form" scope="request"
+				validate="false" input="sellers.updateseller"
+				path="/sellers/update" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateSeller">
+			<forward name="success" path="/sellers/views.do" redirect="true"/>
+		</action>
+		
+		<action name="seller_form_admin" scope="request"
+				validate="false"
+				path="/sellers/update_start_admin" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateStartSellerAdmin">
+			<forward name="form" path="sellers.updateselleradmin"/>
+		</action>
+		
+		<action name="seller_form_admin" scope="request"
+				validate="false" input="sellers.updateselleradmin"
+				path="/sellers/update_admin" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateSellerAdmin">
+			<forward name="success" path="/sellers/views.do" redirect="true"/>
+		</action>
+		
+		<action name="seller_form_admin" scope="request"
+				validate="false"
+				path="/sellers/delete_start" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateStartSellerAdmin">
+			<forward name="form" path="sellers.deleteseller"/>
+		</action>
+ 		
+ 		<action name="seller_form_admin" scope="request"
+				validate="false" input="sellers.deleteseller"
+				path="/sellers/delete"
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="deleteSeller">
+			<forward name="success" path="/sellers/views.do" redirect="true"/>
+		</action>
+		
+		<action name="password_form" scope="request"
+				validate="false"
+				path="/users/edit_start_password" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updateStartPassword">
+			<forward name="form" path="users.updatepassword"/>
+		</action>
+		
+		<action name="password_form" scope="request"
+				validate="true" input="users.updatepassword"
+				path="/users/edit_password" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.users.UserAction"
+				parameter="updatePassword">
+			<forward name="success" path="/users/views.do" redirect="true"/>
+			<forward name="failure" path="users.wrongupdatepassword"/>
+		</action>
+		
+ <!-- ========== End User Action =============================== -->
+ 
+ 
 </action-mappings>
 
 	<!-- ========== Message Resources Definitions ============================ -->
-    <message-resources null="false" parameter="library"/>
+    <message-resources null="false" parameter="kmzero"/>
     
 	<!-- ========== Plug Ins Configuration ================================= -->
     <plug-in className="org.apache.struts.validator.ValidatorPlugIn">

@@ -2,8 +2,93 @@
         "http://jakarta.apache.org/commons/dtds/validator_1_3_0.dtd">
 
 <form-validation>
+
+	<formset>
+		<form name="user_create_form">
+			<field property="name" depends="required,maxlength">
+				<arg key="user.name"/>
+				<arg name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+                    <var-value>255</var-value>
+				</var>
+			</field>
+			<field property="surname" depends="required,maxlength">
+				<arg key="user.surname"/>
+				<arg name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+                    <var-value>255</var-value>
+				</var>
+			</field>
+			<field property="email" depends="required,maxlength,email">
+				<arg key="user.email"/>
+				<arg name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+                    <var-value>255</var-value>
+				</var>
+			</field>
+			<field property="password" depends="required,maxlength">
+				<arg key="user.password"/>
+				<arg name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+                    <var-value>255</var-value>
+				</var>
+			</field>
+			<field property="confirm_password" depends="required,validwhen">
+				<arg key="user.confirm_password"/>
+				<msg name="validwhen" key="errors.validwhen"/>
+				<var>
+	                <var-name>test</var-name>
+	                <var-value>(*this* == password)</var-value>
+                </var>
+			</field>
+			<!-- <field property="date_of_birth" depends="required,maxlength">
+				<arg key="user.date_of_birth"/>
+				<arg name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+                    <var-value>255</var-value>
+				</var>
+			</field> -->
+			<field property="address" depends="required,maxlength">
+				<arg key="user.address"/>
+				<arg name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+                    <var-value>255</var-value>
+				</var>
+			</field>
+		</form>
+		
+		<form name="password_form">
+			<field property="oldPass" depends="required">
+				<arg key="password.oldPass"/>
+			</field>
+			
+			<field property="newPass" depends="required,maxlength">
+				<arg key="password.newPass"/>
+				<arg name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+                    <var-value>255</var-value>
+				</var>
+			</field>
+			<field property="confirmPass" depends="required,validwhen">
+				<arg key="password.confirmPass"/>
+				<msg name="validwhen" key="errors.validwhen"/>
+				<var>
+	                <var-name>test</var-name>
+	                <var-value>(*this* == newPass)</var-value>
+                </var>
+			</field>
+		</form>
+	</formset>
+
              
-    <formset>
+    <!-- <formset>
       <form name="title_form">
             <field property="name" depends="required,maxlength" >
                 <arg key="title.name"/>
@@ -52,6 +137,6 @@
 
      </form>
 
-    </formset>
+    </formset> -->
    
 </form-validation>

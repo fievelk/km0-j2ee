@@ -1,6 +1,6 @@
 package it.univaq.mwt.j2ee.kmZero.presentation.users;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import org.apache.struts.validator.ValidatorForm;
 
@@ -12,9 +12,8 @@ public class UserCreateForm extends ValidatorForm{
 	private String email;
 	private String password;
 	private String confirm_password;
-	private Date created;
-	private Date date_of_birth;
-	private Date last_access;
+	private String created_data;
+	private String date_of_birth_data;
 	private String address;
 	
 	
@@ -54,23 +53,17 @@ public class UserCreateForm extends ValidatorForm{
 	public void setConfirm_password(String confirm_password) {
 		this.confirm_password = confirm_password;
 	}
-	public Date getCreated() {
-		return created;
+	public String getCreated_data() {
+		return created_data;
 	}
-	public void setCreated(Date created) {
-		this.created = created;
+	public void setCreated_data(String created_data) {
+		this.created_data = created_data;
 	}
-	public Date getDate_of_birth() {
-		return date_of_birth;
+	public String getDate_of_birth_data() {
+		return date_of_birth_data;
 	}
-	public void setDate_of_birth(Date date_of_birth) {
-		this.date_of_birth = date_of_birth;
-	}
-	public Date getLast_access() {
-		return last_access;
-	}
-	public void setLast_access(Date last_access) {
-		this.last_access = last_access;
+	public void setDate_of_birth_data(String date_of_birth_data) {
+		this.date_of_birth_data = date_of_birth_data;
 	}
 	public String getAddress() {
 		return address;
@@ -78,5 +71,7 @@ public class UserCreateForm extends ValidatorForm{
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	
 	
 }
