@@ -43,6 +43,7 @@ public class ProductAction extends MappingDispatchAction {
 		List<Product> products = service.viewProducts();
 		request.setAttribute("products", products);
 		
+		
 		} catch (BusinessException e){
 		    e.printStackTrace();
 		}
@@ -58,11 +59,15 @@ public class ProductAction extends MappingDispatchAction {
 		ProductService service = factory.getProductService();
 		List<Product> products = service.viewActiveProducts();
 		
-/*		for(Product product: products) {
+		/*for(Product product: products) {
 			String date_inToString = DateConversionUtility.calendarDateToString(product.getDate_in());
 			String date_outToString = DateConversionUtility.calendarDateToString(product.getDate_out());
-		}*/
+			
+			request.setAttribute("date_in", date_inToString);
+			request.setAttribute("date_out", date_outToString);
 		
+		}
+		*/
 		request.setAttribute("products", products);
 
 		
