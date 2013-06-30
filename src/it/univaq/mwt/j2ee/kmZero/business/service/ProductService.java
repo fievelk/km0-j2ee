@@ -29,7 +29,6 @@ public interface ProductService {
 	List<Category> findAllCategories() throws BusinessException;
 
 	ResponseGrid viewProductsBySellerIdPaginated(RequestGrid requestGrid) throws BusinessException;
-
 	
 	// inserire ResponseGrid
 	

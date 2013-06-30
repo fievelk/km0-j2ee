@@ -27,7 +27,6 @@
 		                    "fnRender": function (oObj) {
 		                       return "<a href='${pageContext.request.contextPath}/products/update_start.do?oid=" + oObj.aData['oid'] + "'><i class='icon-edit'></i></a>" + " | " + 
 		                       		  "<a href='${pageContext.request.contextPath}/products/delete_start.do?oid=" + oObj.aData['oid'] + "'><i class='icon-trash'></i></a>";
-		                    	
 		                     }
 		                  }
             ],

@@ -361,7 +361,6 @@ public class JDBCProductService implements ProductService{
 
 		
 	}
-
 	
 	// Aggiungere l'id del Seller ai parametri che si passano al metodo!
 	@Override

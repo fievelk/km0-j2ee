@@ -58,7 +58,7 @@
 				path="/products/update" 
 				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"
 				parameter="update">
-			<forward name="success" path="/products/views.do" redirect="true"/>
+			<forward name="success" path="/products/viewsforsellers.do" redirect="true"/>
 		</action>			
 
 		<action name="product_form" scope="request"
