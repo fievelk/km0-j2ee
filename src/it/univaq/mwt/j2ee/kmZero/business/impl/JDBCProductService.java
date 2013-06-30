@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +15,8 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import it.univaq.mwt.j2ee.kmZero.business.BusinessException;
+import it.univaq.mwt.j2ee.kmZero.business.RequestGrid;
+import it.univaq.mwt.j2ee.kmZero.business.ResponseGrid;
 import it.univaq.mwt.j2ee.kmZero.business.model.Category;
 import it.univaq.mwt.j2ee.kmZero.business.model.Image;
 import it.univaq.mwt.j2ee.kmZero.business.model.Product;
@@ -243,9 +246,9 @@ public class JDBCProductService implements ProductService{
 		
 		try {
 			connection = dataSource.getConnection();
-			String sql = "SELECT p.*, cat.name as category_name, s.company seller_company " +
+			String sql = "SELECT p.*, cat.name as category_name, s.company as seller_company " +
 						"FROM products p, categories cat, users u, sellers s " +
-						"WHERE p.categories_id=cat.id AND p.sellers_users_id=? p.sellers_users_id=u.id";
+						"WHERE p.categories_id=cat.id AND p.sellers_users_id=? AND p.sellers_users_id=u.id";
 					
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setLong(1, id); // Passo alla query l'id inserito come parametro del metodo
@@ -427,5 +430,114 @@ public class JDBCProductService implements ProductService{
 
 		
 	}
+
+	
+	// Aggiungere l'id del Seller ai parametri che si passano al metodo!
+	@Override
+	public ResponseGrid viewProductsBySellerIdPaginated(RequestGrid requestGrid) throws BusinessException {
+		if ("oid".equals(requestGrid.getSortCol())) {
+			requestGrid.setSortCol("p.id");
+		} else {
+			if ("category.name".equals(requestGrid.getSortCol())) {
+				requestGrid.setSortCol("cat.name");
+			} else {
+				requestGrid.setSortCol("p." + requestGrid.getSortCol());
+			}
+			
+		} 
+
+		
+		String orderBy = (!"".equals(requestGrid.getSortCol()) && !"".equals(requestGrid.getSortDir())) ? "order by " + requestGrid.getSortCol() + " " + requestGrid.getSortDir() : "";
+		String baseSearch = "SELECT p.*, cat.name as category_name, cat.id as category_id, s.company as seller_company" +
+			 	"FROM products p, categories cat, users u, sellers s" +
+			 	"WHERE p.categories_id=cat.id AND p.sellers_users_id=200 AND p.sellers_users_id=u.id" + 
+			 	((!"".equals(requestGrid.getsSearch())) ? " and p.name like '" + ConversionUtility.addPercentSuffix(requestGrid.getsSearch()) + "'":"");
+		
+		String sql = "select * from (" +
+					 "select rownum as rn, id, name, description, price, date_in, date_out, category_name from (" +
+					 	baseSearch +
+					 	orderBy + 
+					 ")" +
+					 ")" + 
+					 "where rn >= " + (requestGrid.getiDisplayStart() + 1)+ 
+					 " and rownum<=" + requestGrid.getiDisplayLength();
+		//String countSql = "SELECT count(*) from (SELECT p.*, cat.name as category_name, cat.id as category_id, s.company as seller_company FROM products p, categories cat, users u, sellers s WHERE p.categories_id=cat.id AND p.sellers_users_id=200 AND p.sellers_users_id=u.id)";
+		
+		String countSql = "select count(*) from (" + baseSearch + ")";
+		long records = 0;
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		List<Product> products = new ArrayList<Product>();
+		try {
+			con = dataSource.getConnection();
+			st = con.createStatement();
+			//COUNT ELEMENTS
+			rs = st.executeQuery(countSql);
+			if (rs.next()) {
+				records = rs.getLong(1);
+			}
+			//EXECUTE SQL LIMITED
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Long id = rs.getLong("id");
+				String name = rs.getString("name");
+				String description = rs.getString("description");
+				float price = rs.getFloat("price");
+				Long categoryId = rs.getLong("categories_id");
+				Calendar date_in = DateConversionUtility.timestampToCalendar(rs.getTimestamp("date_in"));
+				Calendar date_out = DateConversionUtility.timestampToCalendar(rs.getTimestamp("date_out"));
+				String categoryName = rs.getString("category_name");
+				String company = rs.getString("seller_company");
+				Long userId= rs.getLong("sellers_users_id");
+				Category category = new Category();
+				category.setOid(categoryId);
+				category.setName(categoryName);
+				Seller seller = new Seller(userId, company);
+				
+				products.add(new Product(id, name, description, price, category, seller, date_in, date_out));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BusinessException(e);
+		} finally {
+			if (st != null) {
+				try {
+					st.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+				}
+			}
+
+		}
+		return new ResponseGrid(requestGrid.getsEcho(), records, records, products);
+	}
+	
+/*	@Override
+	public ResponseGrid viewProductsBySellerIdPaginated(RequestGrid requestGrid)
+			throws BusinessException {
+		
+		long iTotalRecords = 2;
+		long iTotalDisplayRecords = 2;
+		List rows = new ArrayList();
+		Category category = new Category();
+		category.setName("pizza");
+		Seller seller =  new Seller();
+		seller.setCompany("compagnola");
+		Product product = new Product(65L, "prodottodatatable", "vediamo", 1.50F, category, seller);
+		product.setActive(true);
+		rows.add(product);
+		
+		ResponseGrid responseGrid = new ResponseGrid(requestGrid.getsEcho(), iTotalRecords, iTotalDisplayRecords, rows);
+		// Costruire un Response Grid facendo le query
+		return responseGrid;
+	}
+*/
 	
 }
