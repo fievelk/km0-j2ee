@@ -26,17 +26,25 @@
     </definition>
      
     <!-- tile per la form di inserimento del Product -->
-    <definition name="products.insertproduct" extends="standard" 
+    
+     <definition name="products.insertproduct" extends="standard" 
     			controllerClass="it.univaq.mwt.j2ee.kmZero.presentation.products.CategoriesTilesAction">
     	<put name="action" value="/products/insert.do"></put>
-    	<put name="content" value="/products/insertproduct.jsp"></put>
+    	<put name="content" value="/products/productform.jsp"></put>
     </definition>
     
     <definition name="products.updateproduct" extends="standard" 
     			controllerClass="it.univaq.mwt.j2ee.kmZero.presentation.products.CategoriesTilesAction">
     	<put name="action" value="/products/update.do"></put>
-    	<put name="content" value="/products/updateproduct.jsp"></put>
+    	<put name="content" value="/products/productform.jsp"></put>
     </definition>    
+    
+    <definition name="products.deleteproduct" extends="standard" 
+    			controllerClass="it.univaq.mwt.j2ee.kmZero.presentation.products.CategoriesTilesAction">
+    	<put name="delete" value="true"></put>
+    	<put name="action" value="/products/delete.do"></put>
+    	<put name="content" value="/products/productform.jsp"></put>
+    </definition>       
     
     <!-- Tiles per la form della creazione dell'utente -->
     <definition name="users.views" extends="standard">
@@ -96,16 +104,5 @@
         <put name="action" value="/users/edit_password.do"/>
         <put name="content" value="/users/passwordform.jsp"/>
     </definition>
-    <!-- Old Library tiles -->
-    
-    <!-- <definition name="titles.inserttitle" extends="standard" controllerClass="it.univaq.mwt.j2ee.library.presentation.titles.TitleKindTilesAction">
-        <put name="action" value="/titles/insert.do"/>
-        <put name="body" value="/titles/titleform.jsp"/>
-    </definition>    
-
-	<definition name="titles.updatetitle" extends="standard" controllerClass="it.univaq.mwt.j2ee.library.presentation.titles.TitleKindTilesAction">
-        <put name="action" value="/titles/update.do"/>
-        <put name="body" value="/titles/titleform.jsp"/>
-    </definition>     -->
 
 </tiles-definitions>

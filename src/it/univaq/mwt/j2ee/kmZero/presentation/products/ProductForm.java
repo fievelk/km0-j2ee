@@ -3,6 +3,7 @@ package it.univaq.mwt.j2ee.kmZero.presentation.products;
 import it.univaq.mwt.j2ee.kmZero.business.model.Category;
 import it.univaq.mwt.j2ee.kmZero.business.model.Image;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -15,7 +16,7 @@ public class ProductForm extends ValidatorForm {
 	private String description;
 	private float price;
 	//private String date_in;
-	//private Date date_out;
+	//private String date_out;
 	private long categoryId; // Va inserito un long al posto del tipo Category?
 
 	//private Collection<Image> images;
@@ -59,14 +60,15 @@ public class ProductForm extends ValidatorForm {
 	}
 	public void setDate_in(String date_in) {
 		this.date_in = date_in;
-	} */
+	}
 	
-/*	public Date getDate_out() {
+	public String getDate_out() {
 		return date_out;
 	}
-	public void setDate_out(Date date_out) {
+	
+	public void setDate_out(String date_out) {
 		this.date_out = date_out;
-	}*/
-
+	}
+*/
 	
 }

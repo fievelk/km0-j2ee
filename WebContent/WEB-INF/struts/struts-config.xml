@@ -57,19 +57,30 @@
 				validate="false"
 				path="/products/update" 
 				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"
-				parameter="views"> <!-- da cambiare -->
-			<forward name="form" path="products.updateproduct"/>
-		</action>				
-		
-		
-		
-		
-<!-- 		<action path="/products/insert_start" 
+				parameter="update">
+			<forward name="success" path="/products/views.do" redirect="true"/>
+		</action>			
+
+		<action name="product_form" scope="request"
+				validate="false"
+				path="/products/delete_start" 
 				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"
-				parameter="insertStart">
-			<forward name="success" path="products.insertproduct"/>
+				parameter="updateStart">
+			<forward name="form" path="products.deleteproduct"/>
 		</action>
- -->		
+
+		<action name="product_form" scope="request"
+				validate="false"
+				path="/products/delete" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"
+				parameter="delete">
+			<forward name="success" path="/products/viewsforsellers.do" redirect="true"/>
+		</action>
+		
+		<action path="/products/viewProductsBySellerIdPaginated" 
+				type="it.univaq.mwt.j2ee.kmZero.presentation.products.ProductAction"
+				parameter="viewProductsBySellerIdPaginated">
+		</action>
  
  <!-- ========== Begin User Action =============================== -->
  		<action path="/users/views" 

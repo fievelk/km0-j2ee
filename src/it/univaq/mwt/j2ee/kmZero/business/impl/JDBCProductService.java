@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +15,8 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import it.univaq.mwt.j2ee.kmZero.business.BusinessException;
+import it.univaq.mwt.j2ee.kmZero.business.RequestGrid;
+import it.univaq.mwt.j2ee.kmZero.business.ResponseGrid;
 import it.univaq.mwt.j2ee.kmZero.business.model.Category;
 import it.univaq.mwt.j2ee.kmZero.business.model.Image;
 import it.univaq.mwt.j2ee.kmZero.business.model.Product;
@@ -82,13 +85,80 @@ public class JDBCProductService implements ProductService{
 
 	@Override
 	public void updateProduct(Product product) throws BusinessException {
-		// TODO Auto-generated method stub
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			connection = dataSource.getConnection();
+			
+			String sql = "UPDATE products SET name=?, description=?, price=?, date_in=?, date_out=?, active=?, categories_id=?, sellers_users_id=? " +
+						 "WHERE id=?";
+			
+			preparedStatement = connection.prepareStatement(sql);
+			
+			preparedStatement.setString(1, product.getName());
+			preparedStatement.setString(2, product.getDescription());
+			preparedStatement.setFloat(3, product.getPrice());
+			preparedStatement.setTimestamp(4, new Timestamp(product.getDate_in().getTimeInMillis()));
+			preparedStatement.setTimestamp(5, new Timestamp(product.getDate_out().getTimeInMillis()));
+			preparedStatement.setBoolean(6, true); // Imposta active a 1
+			preparedStatement.setLong(7, product.getCategory().getOid());
+			preparedStatement.setLong(8, 200); // Ho impostato l'id del seller a 200 per prova, poi andrà cambiato in maniera dinamica
+			preparedStatement.setLong(9, product.getOid());
+//			preparedStatement.setLong(5, product.getSeller().getOid());
+			
+			preparedStatement.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BusinessException();
+		} finally {
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+				}
+			}
+		}
 		
 	}
 
 	@Override
-	public void deleteProduct(long oid_product) throws BusinessException {
-		// TODO Auto-generated method stub
+	public void deleteProduct(Product product) throws BusinessException {
+		Connection con = null;
+		PreparedStatement st = null;
+		try {
+			con = dataSource.getConnection();
+			st = con.prepareStatement("UPDATE products SET active=0 WHERE id=?");
+			st.setLong(1, product.getOid());
+			st.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BusinessException(e);
+		} finally {
+			if (st != null) {
+				try {
+					st.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+				}
+			}
+
+		}
 		
 	}
 
@@ -162,142 +232,6 @@ public class JDBCProductService implements ProductService{
 		
 		return result;
 	}
-		
-	
-	// viewActiveProducts() mostra tutti i prodotti con active=1 (senza restrizioni sul date range). Aggiungere l'id Seller dalla sessione?
-	@Override
-	public List<Product> viewActiveProducts() throws BusinessException {
-		
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet rs = null;
-		List<Product> result = new ArrayList<Product>();
-		
-		try {
-			connection = dataSource.getConnection();
-			String sql = "SELECT p.*, cat.name as category_name, s.company seller_company " +
-						"FROM products p, categories cat, users u, sellers s " +
-						"WHERE p.categories_id=cat.id AND p.sellers_users_id=u.id and p.active=1";
-					
-			preparedStatement = connection.prepareStatement(sql);
-			
-			rs = preparedStatement.executeQuery();
-		
-			while (rs.next()) {
-				Long id = rs.getLong("id");
-				String name = rs.getString("name");
-				String description = rs.getString("description");
-				float price = rs.getFloat("price");
-				Long categoryId= rs.getLong("categories_id");
-				String categoryName = rs.getString("category_name");
-				String company = rs.getString("seller_company");
-				Long userId= rs.getLong("sellers_users_id");
-				Calendar date_in = DateConversionUtility.timestampToCalendar(rs.getTimestamp("date_in"));
-				Calendar date_out = DateConversionUtility.timestampToCalendar(rs.getTimestamp("date_out"));
-				//String userName = rs.getString("user_name");
-				
-				Category category = new Category(categoryId, categoryName);
-				
-				Seller seller = new Seller(userId, company); // Instantiate a Seller object, using its User oid and company)
-				
-				Product product = new Product(id, name, description, price, category, seller, date_in, date_out);
-				
-				result.add(product);
-				
-			}			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (preparedStatement != null) {
-				try {
-					preparedStatement.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-		
-		return result;
-	}
-
- 	
-	@Override
-	public List<Product> viewProductsBySellerId(long id) throws BusinessException {
-		
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet rs = null;
-		List<Product> result = new ArrayList<Product>();
-		
-		try {
-			connection = dataSource.getConnection();
-			String sql = "SELECT p.*, cat.name as category_name, s.company seller_company " +
-						"FROM products p, categories cat, users u, sellers s " +
-						"WHERE p.categories_id=cat.id AND p.sellers_users_id=? p.sellers_users_id=u.id";
-					
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setLong(1, id); // Passo alla query l'id inserito come parametro del metodo
-			rs = preparedStatement.executeQuery();
-		
-			while (rs.next()) {
-				Long oid = rs.getLong("id");
-				String name = rs.getString("name");
-				String description = rs.getString("description");
-				float price = rs.getFloat("price");
-				Long categoryId= rs.getLong("categories_id");
-				String categoryName = rs.getString("category_name");
-				String company = rs.getString("seller_company");
-				Long userId= rs.getLong("sellers_users_id");
-				//String userName = rs.getString("user_name");
-				
-				Category category = new Category(categoryId, categoryName);
-				
-				Seller seller = new Seller(userId, company); // Instantiate a Seller object, using its User oid and company)
-				
-				Product product = new Product(id, name, description, price, category, seller);
-				
-				result.add(product);
-				
-			}			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (preparedStatement != null) {
-				try {
-					preparedStatement.close();
-				} catch (SQLException e) {
-				}
-			}
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-		
-		return result;
-	}
-	
 	
 	@Override
 	public void createCategory(Category category) throws BusinessException {
@@ -427,5 +361,91 @@ public class JDBCProductService implements ProductService{
 
 		
 	}
+
 	
+	// Aggiungere l'id del Seller ai parametri che si passano al metodo!
+	@Override
+	public ResponseGrid viewProductsBySellerIdPaginated(RequestGrid requestGrid) throws BusinessException {
+		if ("oid".equals(requestGrid.getSortCol())) {
+			requestGrid.setSortCol("p.id");
+		} else {
+			if ("category.name".equals(requestGrid.getSortCol())) {
+				requestGrid.setSortCol("cat.name");
+			} else {
+				requestGrid.setSortCol("p." + requestGrid.getSortCol());
+			}
+			
+		} 
+
+		
+		String orderBy = (!"".equals(requestGrid.getSortCol()) && !"".equals(requestGrid.getSortDir())) ? "order by " + requestGrid.getSortCol() + " " + requestGrid.getSortDir() : "";
+		String baseSearch = "SELECT p.*, cat.name as category_name " +
+			 	"FROM products p, categories cat, users u, sellers s " +
+			 	"WHERE p.categories_id=cat.id AND p.sellers_users_id=200 AND p.sellers_users_id=u.id and p.active=1" + 
+			 	((!"".equals(requestGrid.getsSearch())) ? " and p.name like '" + ConversionUtility.addPercentSuffix(requestGrid.getsSearch()) + "'":"");
+		
+		String sql = "SELECT * from (" +
+					 "SELECT rownum AS rn, id, name, description, price, date_in, date_out, category_name, sellers_users_id, categories_id FROM (" +
+					 	baseSearch +
+					 	orderBy + 
+					 ")" +
+					 ")" + 
+					 "WHERE rn >= " + (requestGrid.getiDisplayStart() + 1)+ 
+					 " AND rownum<=" + requestGrid.getiDisplayLength();
+		
+		String countSql = "select count(*) from (" + baseSearch + ")";
+		long records = 0;
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		List<Product> products = new ArrayList<Product>();
+		
+		try {
+			con = dataSource.getConnection();
+			st = con.createStatement();
+			//COUNT ELEMENTS
+			rs = st.executeQuery(countSql);
+			if (rs.next()) {
+				records = rs.getLong(1);
+			}
+			//EXECUTE SQL LIMITED
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Long id = rs.getLong("id");
+				String name = rs.getString("name");
+				String description = rs.getString("description");
+				float price = rs.getFloat("price");
+				Long categoryId = rs.getLong("categories_id");
+				Calendar date_in = DateConversionUtility.timestampToCalendar(rs.getTimestamp("date_in"));
+				Calendar date_out = DateConversionUtility.timestampToCalendar(rs.getTimestamp("date_out"));
+				String categoryName = rs.getString("category_name");
+				Long userId= rs.getLong("sellers_users_id");
+				Category category = new Category();
+				category.setOid(categoryId);
+				category.setName(categoryName);
+				Seller seller = new Seller(userId);
+				
+				products.add(new Product(id, name, description, price, category, seller, date_in, date_out));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BusinessException(e);
+		} finally {
+			if (st != null) {
+				try {
+					st.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+				}
+			}
+
+		}
+		return new ResponseGrid(requestGrid.getsEcho(), records, records, products);
+	}
 }

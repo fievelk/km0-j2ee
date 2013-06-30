@@ -25,6 +25,7 @@
 	    <td>Category</td>
 	    <td>Seller Company</td>
 	    <td>update</td>
+	    <td>delete</td>
     </tr>
 	<c:forEach items="${requestScope.products}" var="product">
 	<tr>
@@ -35,6 +36,7 @@
 		<td>${product.category.name}</td>
 		<td>${product.seller.company}</td>
 		<td><a href="${pageContext.request.contextPath}/products/update_start.do?oid=${product.oid}">UPDATAMI</a></td>
+		<td><a href="${pageContext.request.contextPath}/products/delete_start.do?oid=${product.oid}">DELETAMI</a></td>
 	</tr>
 	</c:forEach>
 </table>
